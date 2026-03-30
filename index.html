@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore - Магазин електроніки</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">TechStore</span>
+            </a>
+            
+            <div class="header-controls">
+                <div class="switcher">
+                    <button class="lang-btn active" data-lang="uk">🇺🇦 UA</button>
+                    <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
+                    <button class="lang-btn" data-lang="pl">🇵🇱 PL</button>
+                </div>
+                
+                <div class="switcher">
+                    <button class="currency-btn active" data-currency="UAH">₴</button>
+                    <button class="currency-btn" data-currency="USD">$</button>
+                    <button class="currency-btn" data-currency="PLN">zł</button>
+                </div>
+                
+                <button class="cart-btn" id="cartBtn">
+                    <span class="cart-icon">🛒</span>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="search-section">
+            <div class="search-container">
+                <input type="text" class="search-input" id="searchInput" placeholder="Пошук техніки...">
+                <span class="search-icon">🔍</span>
+            </div>
+        </section>
+
+        <section class="products-section" id="recommendedSection">
+            <h2 class="section-title" id="recommendedTitle">⭐ Рекомендовані товари</h2>
+            <div class="products-grid" id="recommendedGrid"></div>
+        </section>
+
+        <section class="products-section hidden" id="searchSection">
+            <h2 class="section-title" id="searchResultsTitle">🔍 Результати пошуку</h2>
+            <div class="products-grid" id="searchGrid"></div>
+            <div class="no-results hidden" id="noResults">
+                <span class="no-results-icon">😕</span>
+                <p id="noResultsText">Нічого не знайдено</p>
+            </div>
+        </section>
+    </main>
+
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2 id="cartTitle">🛒 Кошик</h2>
+            <button class="close-btn" id="closeCart">×</button>
+        </div>
+        <div class="cart-body">
+            <div class="cart-empty" id="cartEmpty">
+                <span class="cart-empty-icon">🛒</span>
+                <p id="cartEmptyText">Кошик порожній</p>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span id="totalLabel">Разом:</span>
+                <span class="total-price" id="totalPrice">₴0</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn" disabled>Оформити замовлення</button>
+        </div>
+    </aside>
+
+    <div class="modal" id="productModal">
+        <div class="modal-content product-modal-content">
+            <button class="close-modal-btn" id="closeProductModal">×</button>
+            <div class="product-modal-body">
+                <div class="product-modal-image">
+                    <img id="modalProductImage" src="" alt="">
+                </div>
+                <div class="product-modal-info">
+                    <span class="product-modal-category" id="modalProductCategory"></span>
+                    <h2 class="product-modal-title" id="modalProductTitle"></h2>
+                    <p class="product-modal-description" id="modalProductDescription"></p>
+                    <div class="product-modal-footer">
+                        <span class="product-modal-price" id="modalProductPrice"></span>
+                        <button class="add-to-cart-btn large" id="modalAddToCart">🛒 Додати в кошик</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content checkout-modal-content">
+            <button class="close-modal-btn" id="closeCheckoutModal">×</button>
+            <h2 class="checkout-title" id="checkoutTitle">📦 Оформлення замовлення</h2>
+            <form id="checkoutForm">
+                <div class="form-section">
+                    <h3 id="deliveryInfoLabel">📍 Інформація про доставку</h3>
+                    <div class="form-group">
+                        <label id="nameLabel">Ім'я</label>
+                        <input type="text" id="nameInput" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="phoneLabel">Телефон</label>
+                        <input type="tel" id="phoneInput" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="addressLabel">Адреса доставки</label>
+                        <textarea id="addressInput" rows="3" required></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3 id="paymentMethodLabel">💳 Спосіб оплати</h3>
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="card" checked>
+                            <span class="payment-label" id="cardPaymentLabel">💳 Карткою онлайн</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="cash">
+                            <span class="payment-label" id="cashPaymentLabel">💵 Готівкою при отриманні</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3 id="orderSummaryLabel">📋 Ваше замовлення</h3>
+                    <div class="order-summary" id="orderItems"></div>
+                    <div class="order-total">
+                        <span id="totalToPayLabel">До сплати:</span>
+                        <span class="order-total-price" id="orderTotal">₴0</span>
+                    </div>
+                </div>
+                
+                <button type="submit" class="place-order-btn" id="placeOrderBtn">✓ Оформити замовлення</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="successModal">
+        <div class="modal-content success-modal-content">
+            <button class="close-modal-btn" id="closeSuccessModal">×</button>
+            <div class="confetti" id="confetti"></div>
+            <div class="success-content">
+                <span class="success-icon">✓</span>
+                <h2 id="successTitle">Замовлення оформлено!</h2>
+                <p id="successText">Дякуємо за покупку! Ми зв'яжемося з вами найближчим часом.</p>
+                <button class="continue-btn" id="continueShoppingBtn">Продовжити покупки</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <span>✓</span> Товар додано до кошика
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
