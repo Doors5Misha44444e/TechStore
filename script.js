@@ -39,7 +39,8 @@ const translations = {
             accessories: "Аксесуари",
             gaming: "Ігрове обладнання",
             networking: "Мережеве обладнання",
-            tablets: "Планшети"
+            tablets: "Планшети",
+            smartphones: "Смартфони"
         }
     },
     en: {
@@ -82,7 +83,8 @@ const translations = {
             accessories: "Accessories",
             gaming: "Gaming",
             networking: "Networking",
-            tablets: "Tablets"
+            tablets: "Tablets",
+            smartphones: "Smartphones"
         }
     },
     pl: {
@@ -125,7 +127,8 @@ const translations = {
             accessories: "Akcesoria",
             gaming: "Gaming",
             networking: "Sieci",
-            tablets: "Tablety"
+            tablets: "Tablety",
+            smartphones: "Smartfony"
         }
     }
 };
@@ -139,6 +142,7 @@ const products = [
         category: "laptops",
         price: 89999,
         recommended: true,
+        stock: 3,
         description: {
             uk: "Apple MacBook Pro 14 з чіпом M3 Pro. 18 ГБ оперативної пам'яті, 512 ГБ SSD. Дисплей Liquid Retina XDR 14.2 дюйми. До 17 годин автономної роботи. Ідеальний для професіоналів.",
             en: "Apple MacBook Pro 14 with M3 Pro chip. 18GB RAM, 512GB SSD. 14.2-inch Liquid Retina XDR display. Up to 17 hours battery life. Perfect for professionals.",
@@ -152,6 +156,7 @@ const products = [
         category: "laptops",
         price: 65999,
         recommended: true,
+        stock: 4,
         description: {
             uk: "Ігровий ноутбук ASUS ROG Strix G16. Intel Core i9-13980HX, RTX 4070. 32 ГБ DDR5, 1 ТБ SSD. Екран 16 дюймів 240 Гц. RGB підсвітка клавіатури. Потужне охолодження.",
             en: "Gaming laptop ASUS ROG Strix G16. Intel Core i9-13980HX, RTX 4070. 32GB DDR5, 1TB SSD. 16-inch 240Hz display. RGB keyboard backlight. Powerful cooling.",
@@ -165,6 +170,7 @@ const products = [
         category: "laptops",
         price: 72999,
         recommended: true,
+        stock: 5,
         description: {
             uk: "Бізнес-ноутбук Lenovo ThinkPad X1 Carbon Gen 11. Intel Core i7-1365U, 16 ГБ RAM, 512 ГБ SSD. 14-дюймовий 2.8K OLED дисплей. Вага лише 1.12 кг. Сканер відбитків пальців.",
             en: "Business laptop Lenovo ThinkPad X1 Carbon Gen 11. Intel Core i7-1365U, 16GB RAM, 512GB SSD. 14-inch 2.8K OLED display. Weight only 1.12 kg. Fingerprint scanner.",
@@ -178,6 +184,7 @@ const products = [
         category: "laptops",
         price: 28999,
         recommended: false,
+        stock: 7,
         description: {
             uk: "Універсальний ноутбук HP Pavilion 15. AMD Ryzen 5 7530U, 16 ГБ RAM, 512 ГБ SSD. IPS дисплей 15.6 дюймів Full HD. Відеокарта AMD Radeon. Швидка зарядка. Для роботи та навчання.",
             en: "Versatile HP Pavilion 15 laptop. AMD Ryzen 5 7530U, 16GB RAM, 512GB SSD. 15.6-inch Full HD IPS display. AMD Radeon graphics. Fast charging. For work and study.",
@@ -191,6 +198,7 @@ const products = [
         category: "computers",
         price: 95999,
         recommended: true,
+        stock: 2,
         description: {
             uk: "Потужний ігровий комп'ютер. Intel Core i9-14900K, NVIDIA RTX 4080 16GB. 64 ГБ DDR5, 2 ТБ NVMe SSD. Водяне охолодження, RGB підсвітка. Корпус із загартованого скла.",
             en: "Powerful gaming computer. Intel Core i9-14900K, NVIDIA RTX 4080 16GB. 64GB DDR5, 2TB NVMe SSD. Liquid cooling, RGB lighting. Tempered glass case.",
@@ -204,6 +212,7 @@ const products = [
         category: "computers",
         price: 67999,
         recommended: true,
+        stock: 4,
         description: {
             uk: "Apple iMac 24 дюйми з чіпом M3. 8-ядерний CPU, 10-ядерний GPU. 16 ГБ RAM, 512 ГБ SSD. Дисплей Retina 4.5K. Вбудована камера 1080p, стереодинаміки. 7 кольорів на вибір.",
             en: "Apple iMac 24-inch with M3 chip. 8-core CPU, 10-core GPU. 16GB RAM, 512GB SSD. 4.5K Retina display. Built-in 1080p camera, stereo speakers. 7 colors available.",
@@ -217,6 +226,7 @@ const products = [
         category: "computers",
         price: 18999,
         recommended: false,
+        stock: 6,
         description: {
             uk: "Офісний комп'ютер для роботи. Intel Core i5-12400, Intel UHD Graphics. 16 ГБ DDR4, 512 ГБ SSD. Тихий корпус, Windows 11 Pro. Ідеально для офісних задач та інтернету.",
             en: "Office computer for work. Intel Core i5-12400, Intel UHD Graphics. 16GB DDR4, 512GB SSD. Quiet case, Windows 11 Pro. Perfect for office tasks and internet.",
@@ -230,6 +240,7 @@ const products = [
         category: "monitors",
         price: 52999,
         recommended: true,
+        stock: 2,
         description: {
             uk: "Ультраширокий ігровий монітор Samsung Odyssey G9 49 дюймів. DQHD 5120x1440, 240 Гц, 1мс. Вигнута панель 1000R, QLED. HDR1000, FreeSync Premium Pro. Заміна двох моніторів.",
             en: "Ultra-wide gaming monitor Samsung Odyssey G9 49-inch. DQHD 5120x1440, 240Hz, 1ms. 1000R curved panel, QLED. HDR1000, FreeSync Premium Pro. Two monitors in one.",
@@ -243,6 +254,7 @@ const products = [
         category: "monitors",
         price: 24999,
         recommended: true,
+        stock: 5,
         description: {
             uk: "Ігровий монітор LG UltraGear 27 дюймів 4K. IPS матриця, 144 Гц, 1мс. HDR400, 98% DCI-P3. NVIDIA G-Sync, AMD FreeSync. Регулювання висоти та нахилу. USB-C з Power Delivery.",
             en: "Gaming monitor LG UltraGear 27-inch 4K. IPS panel, 144Hz, 1ms. HDR400, 98% DCI-P3. NVIDIA G-Sync, AMD FreeSync. Height and tilt adjustment. USB-C with Power Delivery.",
@@ -256,6 +268,7 @@ const products = [
         category: "monitors",
         price: 32999,
         recommended: false,
+        stock: 3,
         description: {
             uk: "Професійний монітор Dell UltraSharp 32 дюйми. IPS Black 4K, 100% sRGB, 98% DCI-P3. Калібрований на заводі. USB-C 90W, KVM-перемикач. Для дизайнерів та фотографів.",
             en: "Professional monitor Dell UltraSharp 32-inch. IPS Black 4K, 100% sRGB, 98% DCI-P3. Factory calibrated. USB-C 90W, KVM switch. For designers and photographers.",
@@ -269,6 +282,7 @@ const products = [
         category: "keyboards",
         price: 5499,
         recommended: true,
+        stock: 12,
         description: {
             uk: "Механічна ігрова клавіатура Logitech G Pro X. Змінні перемикачі GX. RGB підсвітка LIGHTSYNC. Компактний TKL формат. Знімний кабель. Використовується кіберспортсменами.",
             en: "Mechanical gaming keyboard Logitech G Pro X. Swappable GX switches. LIGHTSYNC RGB lighting. Compact TKL format. Detachable cable. Used by esports pros.",
@@ -282,6 +296,7 @@ const products = [
         category: "keyboards",
         price: 7999,
         recommended: true,
+        stock: 8,
         description: {
             uk: "Преміум механічна клавіатура Razer BlackWidow V4 Pro. Перемикачі Razer Green. Підставка для зап'ястя. Мультимедійні клавіші та колесо гучності. Razer Chroma RGB. Макроклавіші.",
             en: "Premium mechanical keyboard Razer BlackWidow V4 Pro. Razer Green switches. Wrist rest included. Media keys and volume wheel. Razer Chroma RGB. Macro keys.",
@@ -295,6 +310,7 @@ const products = [
         category: "keyboards",
         price: 4299,
         recommended: false,
+        stock: 10,
         description: {
             uk: "Бездротова механічна клавіатура Keychron K8 Pro. Підключення Bluetooth 5.1, USB-C. Гаряча заміна перемикачів. RGB підсвітка. Сумісність з Mac та Windows. Акумулятор 4000 мАг.",
             en: "Wireless mechanical keyboard Keychron K8 Pro. Bluetooth 5.1, USB-C connection. Hot-swappable switches. RGB backlight. Mac and Windows compatible. 4000mAh battery.",
@@ -308,6 +324,7 @@ const products = [
         category: "keyboards",
         price: 4999,
         recommended: true,
+        stock: 9,
         description: {
             uk: "Apple Magic Keyboard з Touch ID та цифровим блоком. Бездротове підключення Bluetooth. Вбудований акумулятор, заряджання через Lightning. Низькопрофільні ножичні перемикачі.",
             en: "Apple Magic Keyboard with Touch ID and numeric keypad. Wireless Bluetooth connection. Built-in battery, Lightning charging. Low-profile scissor switches.",
@@ -321,6 +338,7 @@ const products = [
         category: "mice",
         price: 5299,
         recommended: true,
+        stock: 15,
         description: {
             uk: "Ультралегка ігрова миша Logitech G Pro X Superlight 2. Вага лише 60 г. Сенсор HERO 2 32K DPI. Бездротова технологія LIGHTSPEED. До 95 годин роботи. Вибір кіберспортсменів.",
             en: "Ultra-lightweight gaming mouse Logitech G Pro X Superlight 2. Weight only 60g. HERO 2 32K DPI sensor. LIGHTSPEED wireless technology. Up to 95 hours battery life. Esports choice.",
@@ -334,6 +352,7 @@ const products = [
         category: "mice",
         price: 4199,
         recommended: true,
+        stock: 11,
         description: {
             uk: "Ергономічна ігрова миша Razer DeathAdder V3. Сенсор Focus Pro 30K DPI. Оптичні перемикачі 3 покоління. Вага 59 г. Ергономічна форма для комфортної гри годинами.",
             en: "Ergonomic gaming mouse Razer DeathAdder V3. Focus Pro 30K DPI sensor. Gen-3 Optical switches. Weight 59g. Ergonomic shape for hours of comfortable gaming.",
@@ -347,6 +366,7 @@ const products = [
         category: "mice",
         price: 3799,
         recommended: false,
+        stock: 13,
         description: {
             uk: "Apple Magic Mouse з Multi-Touch поверхнею. Підтримка жестів для навігації. Бездротове Bluetooth підключення. Вбудований акумулятор. Мінімалістичний дизайн Apple.",
             en: "Apple Magic Mouse with Multi-Touch surface. Gesture support for navigation. Wireless Bluetooth connection. Built-in battery. Minimalist Apple design.",
@@ -360,6 +380,7 @@ const products = [
         category: "mice",
         price: 4599,
         recommended: true,
+        stock: 12,
         description: {
             uk: "Професійна миша Logitech MX Master 3S. Тихі кліки. Сенсор 8K DPI. Підключення до 3 пристроїв. Колесо MagSpeed. До 70 днів роботи. Ідеальна для продуктивності.",
             en: "Professional mouse Logitech MX Master 3S. Quiet clicks. 8K DPI sensor. Connect up to 3 devices. MagSpeed wheel. Up to 70 days battery. Perfect for productivity.",
@@ -373,6 +394,7 @@ const products = [
         category: "headphones",
         price: 14999,
         recommended: true,
+        stock: 7,
         description: {
             uk: "Преміум навушники Sony WH-1000XM5. Найкраще шумопоглинання в індустрії. 30 годин роботи. Hi-Res Audio, LDAC. 8 мікрофонів для кристальних дзвінків. Легкі та комфортні.",
             en: "Premium headphones Sony WH-1000XM5. Industry-leading noise cancellation. 30 hours battery. Hi-Res Audio, LDAC. 8 microphones for crystal-clear calls. Light and comfortable.",
@@ -386,6 +408,7 @@ const products = [
         category: "headphones",
         price: 21999,
         recommended: true,
+        stock: 5,
         description: {
             uk: "Apple AirPods Max преміум навушники. Адаптивний еквалайзер, просторове аудіо. Активне шумопоглинання. Digital Crown для керування. 20 годин роботи. Преміум матеріали.",
             en: "Apple AirPods Max premium headphones. Adaptive EQ, spatial audio. Active noise cancellation. Digital Crown for control. 20 hours battery. Premium materials.",
@@ -399,6 +422,7 @@ const products = [
         category: "headphones",
         price: 4499,
         recommended: false,
+        stock: 14,
         description: {
             uk: "Ігрові навушники HyperX Cloud III. 53мм драйвери з чистим басом. Знімний мікрофон з шумопоглинанням. М'які амбушури з пам'яттю форми. Для ПК, PS5, Xbox, Switch.",
             en: "Gaming headset HyperX Cloud III. 53mm drivers with rich bass. Detachable noise-cancelling microphone. Memory foam ear cushions. For PC, PS5, Xbox, Switch.",
@@ -412,6 +436,7 @@ const products = [
         category: "headphones",
         price: 12999,
         recommended: true,
+        stock: 6,
         description: {
             uk: "Бездротова ігрова гарнітура SteelSeries Arctis Nova Pro. Активне шумопоглинання. Преміум Hi-Fi драйвери. Система гарячої заміни батарей. 360° просторовий звук.",
             en: "Wireless gaming headset SteelSeries Arctis Nova Pro. Active noise cancellation. Premium Hi-Fi drivers. Hot-swap battery system. 360° spatial audio.",
@@ -425,6 +450,7 @@ const products = [
         category: "storage",
         price: 8999,
         recommended: true,
+        stock: 9,
         description: {
             uk: "NVMe SSD Samsung 990 Pro 2TB. Швидкість читання 7450 МБ/с, запису 6900 МБ/с. PCIe 4.0 x4. Для геймерів та професіоналів. Теплорозсіювач у комплекті. 5 років гарантії.",
             en: "NVMe SSD Samsung 990 Pro 2TB. Read speed 7450 MB/s, write 6900 MB/s. PCIe 4.0 x4. For gamers and professionals. Heatsink included. 5-year warranty.",
@@ -438,6 +464,7 @@ const products = [
         category: "storage",
         price: 4999,
         recommended: false,
+        stock: 11,
         description: {
             uk: "Ігровий NVMe SSD WD Black SN850X 1TB. До 7300 МБ/с читання. Ідеально для PS5 та ПК. Технологія Game Mode 2.0. RGB підсвітка (опція). Оптимізовано для ігор.",
             en: "Gaming NVMe SSD WD Black SN850X 1TB. Up to 7300 MB/s read. Perfect for PS5 and PC. Game Mode 2.0 technology. RGB lighting (optional). Optimized for gaming.",
@@ -451,6 +478,7 @@ const products = [
         category: "components",
         price: 78999,
         recommended: true,
+        stock: 2,
         description: {
             uk: "Найпотужніша відеокарта NVIDIA GeForce RTX 4090. 24 ГБ GDDR6X. Ada Lovelace архітектура. DLSS 3, Ray Tracing. Для 4K/8K геймінгу, 3D рендерингу, AI роботи.",
             en: "Most powerful graphics card NVIDIA GeForce RTX 4090. 24GB GDDR6X. Ada Lovelace architecture. DLSS 3, Ray Tracing. For 4K/8K gaming, 3D rendering, AI work.",
@@ -465,6 +493,7 @@ const products = [
         category: "components",
         price: 11999,
         recommended: false,
+        stock: 4,
         description: {
             uk: "Оперативна пам'ять Corsair Dominator Platinum DDR5 64GB (2x32GB). 6000MHz, CL30. RGB підсвітка iCUE. Алюмінієвий радіатор. Intel XMP 3.0 профілі. Для ентузіастів.",
             en: "RAM Corsair Dominator Platinum DDR5 64GB (2x32GB). 6000MHz, CL30. iCUE RGB lighting. Aluminum heatsink. Intel XMP 3.0 profiles. For enthusiasts.",
@@ -478,6 +507,7 @@ const products = [
         category: "gaming",
         price: 24999,
         recommended: true,
+        stock: 6,
         description: {
             uk: "Sony PlayStation 5 з Ultra HD Blu-ray приводом. SSD 825 ГБ. 4K до 120fps. Контролер DualSense. Haptic Feedback та адаптивні тригери. Зворотна сумісність з PS4.",
             en: "Sony PlayStation 5 with Ultra HD Blu-ray drive. 825GB SSD. 4K up to 120fps. DualSense controller. Haptic Feedback and adaptive triggers. PS4 backward compatible.",
@@ -491,6 +521,7 @@ const products = [
         category: "gaming",
         price: 22999,
         recommended: true,
+        stock: 5,
         description: {
             uk: "Microsoft Xbox Series X. 12 терафлопів потужності. 1 ТБ NVMe SSD. 4K до 120fps. Xbox Game Pass. Зворотна сумісність з тисячами ігор. Quick Resume технологія.",
             en: "Microsoft Xbox Series X. 12 teraflops of power. 1TB NVMe SSD. 4K up to 120fps. Xbox Game Pass. Backward compatible with thousands of games. Quick Resume technology.",
@@ -504,6 +535,7 @@ const products = [
         category: "gaming",
         price: 15999,
         recommended: true,
+        stock: 8,
         description: {
             uk: "Nintendo Switch OLED Model. 7-дюймовий OLED екран. 64 ГБ пам'яті. Покращені динаміки. LAN-порт на док-станції. Широка підставка. Mario, Zelda, Pokémon ексклюзиви.",
             en: "Nintendo Switch OLED Model. 7-inch OLED screen. 64GB storage. Enhanced speakers. LAN port on dock. Wide stand. Mario, Zelda, Pokémon exclusives.",
@@ -517,6 +549,7 @@ const products = [
         category: "gaming",
         price: 7499,
         recommended: false,
+        stock: 10,
         description: {
             uk: "Преміум контролер Xbox Elite Series 2. Змінні стіки та хрестовина. Регульовані тригери. До 40 годин автономності. Чохол для зберігання. Для Pro-гравців.",
             en: "Premium Xbox Elite Series 2 controller. Swappable thumbsticks and D-pad. Adjustable triggers. Up to 40 hours battery. Carrying case included. For Pro players.",
@@ -530,6 +563,7 @@ const products = [
         category: "networking",
         price: 15999,
         recommended: true,
+        stock: 4,
         description: {
             uk: "Ігровий Wi-Fi 6 роутер ASUS ROG Rapture. Швидкість до 11000 Мбіт/с. Три діапазони. 8 антен. Ігрова пріоритизація трафіку. VPN Fusion. RGB підсвітка Aura.",
             en: "Gaming Wi-Fi 6 router ASUS ROG Rapture. Speed up to 11000 Mbps. Tri-band. 8 antennas. Gaming traffic prioritization. VPN Fusion. Aura RGB lighting.",
@@ -543,6 +577,7 @@ const products = [
         category: "networking",
         price: 12999,
         recommended: false,
+        stock: 6,
         description: {
             uk: "Mesh система TP-Link Deco XE75 Wi-Fi 6E. Покриття до 670 м². Швидкість до 5400 Мбіт/с. Три діапазони включно з 6 ГГц. Батьківський контроль. До 200 пристроїв.",
             en: "Mesh system TP-Link Deco XE75 Wi-Fi 6E. Coverage up to 670 sqm. Speed up to 5400 Mbps. Tri-band including 6 GHz. Parental controls. Up to 200 devices.",
@@ -556,6 +591,7 @@ const products = [
         category: "tablets",
         price: 54999,
         recommended: true,
+        stock: 3,
         description: {
             uk: "Apple iPad Pro 12.9 з чіпом M2. Liquid Retina XDR дисплей. 256 ГБ. Підтримка Apple Pencil 2 та Magic Keyboard. Face ID. ProRes відео. Для творчих професіоналів.",
             en: "Apple iPad Pro 12.9 with M2 chip. Liquid Retina XDR display. 256GB. Apple Pencil 2 and Magic Keyboard support. Face ID. ProRes video. For creative professionals.",
@@ -569,6 +605,7 @@ const products = [
         category: "tablets",
         price: 49999,
         recommended: true,
+        stock: 4,
         description: {
             uk: "Samsung Galaxy Tab S9 Ultra. 14.6\" Dynamic AMOLED 2X, 120 Гц. Snapdragon 8 Gen 2. 12 ГБ RAM, 256 ГБ. S Pen у комплекті. IP68 захист. DeX режим десктопу.",
             en: "Samsung Galaxy Tab S9 Ultra. 14.6\" Dynamic AMOLED 2X, 120Hz. Snapdragon 8 Gen 2. 12GB RAM, 256GB. S Pen included. IP68 protection. DeX desktop mode.",
@@ -582,6 +619,7 @@ const products = [
         category: "accessories",
         price: 14999,
         recommended: false,
+        stock: 5,
         description: {
             uk: "Преміум Thunderbolt 4 док-станція CalDigit TS4. 18 портів. До 98W зарядка ноутбука. 2.5G Ethernet. Для MacBook та ноутбуків. Підключення до 3 моніторів.",
             en: "Premium Thunderbolt 4 dock CalDigit TS4. 18 ports. Up to 98W laptop charging. 2.5G Ethernet. For MacBook and laptops. Connect up to 3 monitors.",
@@ -595,6 +633,7 @@ const products = [
         category: "accessories",
         price: 8999,
         recommended: true,
+        stock: 8,
         description: {
             uk: "Преміум веб-камера Logitech Brio 4K. Роздільна здатність до 4K/30fps або 1080p/60fps. HDR, автофокус. Windows Hello сумісність. Для стрімерів та відеоконференцій.",
             en: "Premium webcam Logitech Brio 4K. Resolution up to 4K/30fps or 1080p/60fps. HDR, autofocus. Windows Hello compatible. For streamers and video conferencing.",
@@ -608,6 +647,7 @@ const products = [
         category: "accessories",
         price: 5999,
         recommended: true,
+        stock: 18,
         description: {
             uk: "Зарядна станція Anker 737 GaNPrime 120W. 3 порти: 2x USB-C, 1x USB-A. Швидка зарядка ноутбука, телефону, планшета одночасно. Компактний дизайн. Дисплей потужності.",
             en: "Charging station Anker 737 GaNPrime 120W. 3 ports: 2x USB-C, 1x USB-A. Fast charge laptop, phone, tablet simultaneously. Compact design. Power display.",
@@ -621,10 +661,123 @@ const products = [
         category: "accessories",
         price: 6999,
         recommended: true,
+        stock: 14,
         description: {
             uk: "Професійний USB мікрофон Blue Yeti X. 4 конденсаторні капсулі. LED індикатор гучності. 4 режими запису. Для подкастів, стрімів, озвучки. Підключається через USB.",
             en: "Professional USB microphone Blue Yeti X. 4 condenser capsules. LED volume indicator. 4 recording patterns. For podcasts, streaming, voice-over. USB connection.",
             pl: "Profesjonalny mikrofon USB Blue Yeti X. 4 kapsułki pojemnościowe. Wskaźnik LED głośności. 4 tryby nagrywania. Do podcastów, streamingu, lektorów. Połączenie USB."
+        }
+    },
+    {
+        id: 41,
+        image: "https://d.428.ua/img/4895745/3000/2000/protsessor_amd_ryzen_9_9950x3d_s-am5_5_7ghz_128mb_tray_100-000000719~1283~1285.jpg",
+        name: { uk: "Процесор AMD Ryzen 9 9950X3D", en: "AMD Ryzen 9 9950X3D Processor", pl: "Procesor AMD Ryzen 9 9950X3D" },
+        category: "components",
+        price: 54999,
+        recommended: true,
+        stock: 3,
+        description: {
+            uk: "Потужний процесор AMD Ryzen 9 9950X3D. Архітектура Zen 5. 16 ядер, 32 потоки. 5.7 ГГц boost. 128 МБ 3D V-Cache. Socket AM5. Ідеально для ігор та професійної роботи.",
+            en: "Powerful AMD Ryzen 9 9950X3D processor. Zen 5 architecture. 16 cores, 32 threads. 5.7 GHz boost. 128 MB 3D V-Cache. Socket AM5. Perfect for gaming and professional work.",
+            pl: "Potężny procesor AMD Ryzen 9 9950X3D. Architektura Zen 5. 16 rdzeni, 32 wątki. 5,7 GHz boost. 128 MB 3D V-Cache. Socket AM5. Idealnie do gier i pracy zawodowej."
+        }
+    },
+    {
+        id: 42,
+        image: "https://content.rozetka.com.ua/goods/images/big_tile/640903644.jpg",
+        name: { uk: "Samsung 990 Pro SSD 2TB", en: "Samsung 990 Pro SSD 2TB", pl: "Samsung 990 Pro SSD 2TB" },
+        category: "storage",
+        price: 16999,
+        recommended: true,
+        stock: 7,
+        description: {
+            uk: "Надшвидкий NVMe SSD Samsung 990 Pro 2TB. PCIe 4.0. Швидкість читання до 7100 МБ/с, запису 6000 МБ/с. Для ігор, відеомонтажу та професійної роботи. Вбудована теплова прокладка. Гарантія 5 років.",
+            en: "Ultra-fast NVMe SSD Samsung 990 Pro 2TB. PCIe 4.0. Read speed up to 7100 MB/s, write 6000 MB/s. For gaming, video editing and professional work. Built-in thermal pad. 5-year warranty.",
+            pl: "Ultraszybki SSD NVMe Samsung 990 Pro 2TB. PCIe 4.0. Szybkość odczytu do 7100 MB/s, zapisu 6000 MB/s. Do gier, edycji wideo i pracy zawodowej. Wbudowana podkładka termiczna. Gwarancja 5 lat."
+        }
+    },
+    {
+        id: 43,
+        image: "https://storage-asset.msi.com/global/picture/product/product_17046991811c9eb5d51a82095c16a47e5200365e92.webp",
+        name: { uk: "NVIDIA RTX 4070 Ti Super", en: "NVIDIA RTX 4070 Ti Super", pl: "NVIDIA RTX 4070 Ti Super" },
+        category: "components",
+        price: 42999,
+        recommended: true,
+        stock: 4,
+        description: {
+            uk: "Потужна видеокарта NVIDIA RTX 4070 Ti Super. 16 ГБ GDDR6X. CUDA ядра NVIDIA. Ідеальна для 4K ігор та професійної графіки. Охолодження ASUS ROG. 320W TDP. Розчин для творців та геймерів.",
+            en: "Powerful NVIDIA RTX 4070 Ti Super graphics card. 16GB GDDR6X. NVIDIA CUDA cores. Ideal for 4K gaming and professional graphics. ASUS ROG cooling. 320W TDP. Solution for creators and gamers.",
+            pl: "Potężna karta graficzna NVIDIA RTX 4070 Ti Super. 16 GB GDDR6X. Rdzenie CUDA NVIDIA. Idealna do gier 4K i grafiki profesjonalnej. Chłodzenie ASUS ROG. 320W TDP. Rozwiązanie dla twórców i graczy."
+        }
+    },
+    {
+        id: 44,
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6iygtyNZSU1yJwSN5UK8WE5V9-xLJCL_Kxg&s",
+        name: { uk: "ASUS ProArt PA148CTC", en: "ASUS ProArt PA148CTC", pl: "ASUS ProArt PA148CTC" },
+        category: "monitors",
+        price: 18999,
+        recommended: true,
+        stock: 6,
+        description: {
+            uk: "Портативний професійний монітор ASUS ProArt PA148CTC. 14 дюймів FHD IPS. 100% sRGB, 100% Rec.709. USB Type-C для живлення та передачі даних. Штатив-підставка. Для дизайнерів та редакторів.",
+            en: "Portable professional monitor ASUS ProArt PA148CTC. 14-inch FHD IPS. 100% sRGB, 100% Rec.709. USB Type-C for power and data. Stand included. For designers and editors.",
+            pl: "Przenośny monitor profesjonalny ASUS ProArt PA148CTC. 14 cali FHD IPS. 100% sRGB, 100% Rec.709. USB Type-C do zasilania i transmisji danych. Podstawa w zestawie. Dla projektantów i edytorów."
+        }
+    },
+    {
+        id: 45,
+        image: "https://files.gamingpc.com.ua/image/cache/770x510/c40344c003c20fd1bf980cd3b380d935.webp",
+        name: { uk: "Ігровий ПК Ryzen 7 9800X3D / RTX 5080", en: "Gaming PC Ryzen 7 9800X3D / RTX 5080", pl: "PC do gier Ryzen 7 9800X3D / RTX 5080" },
+        category: "computers",
+        price: 198163,
+        recommended: true,
+        stock: 2,
+        description: {
+            uk: "Професійний ПК з найкращих комплектуючих для стримів, сучасних ААА-проектів та сесійних онлайн ігор на ультра налаштуваннях. AMD Ryzen 7 9800X3D, GeForce RTX 5080 16GB, 64GB DDR5 6000 MHz, 2TB SSD Kioxia Exceria G2, Gigabyte B650M Gaming Plus WiFi, DeepCool LE360 V2, 850W be quiet! Pure Power 12, NZXT H7 Flow. Для 4K гейміну на максимальних налаштуваннях з FPS 145+.",
+            en: "Professional PC with the best components for streaming, modern AAA projects and online gaming on ultra settings. AMD Ryzen 7 9800X3D, GeForce RTX 5080 16GB, 64GB DDR5 6000 MHz, 2TB SSD Kioxia Exceria G2, Gigabyte B650M Gaming Plus WiFi, DeepCool LE360 V2, 850W be quiet! Pure Power 12, NZXT H7 Flow. For 4K gaming on maximum settings.",
+            pl: "Profesjonalny PC z najlepszymi komponentami do streamingu, nowoczesnych projektów AAA i gier online na ustawieniach ultra. AMD Ryzen 7 9800X3D, GeForce RTX 5080 16GB, 64GB DDR5 6000 MHz, 2TB SSD Kioxia Exceria G2, Gigabyte B650M Gaming Plus WiFi, DeepCool LE360 V2, 850W be quiet! Pure Power 12, NZXT H7 Flow. Do gier 4K na maksymalnych ustawieniach."
+        }
+    },
+    {
+        id: 46,
+        image: "https://www.mrfix.ua/storage/68c/530/ac4/product-product-apple-iphone-17-pro-max-2tb-cosmic-orange-50838-2000x2000.webp",
+        name: { uk: "Apple iPhone 17 Pro Max 2TB", en: "Apple iPhone 17 Pro Max 2TB", pl: "Apple iPhone 17 Pro Max 2TB" },
+        category: "smartphones",
+        price: 79999,
+        recommended: true,
+        stock: 5,
+        description: {
+            uk: "Флагманський смартфон Apple iPhone 17 Pro Max з максимальним сховищем 2TB. Cosmicоранжевий колір. Дисплей Dynamic Island 6.9 дюймів. Потрійна камера з найновішою обробкою. Face ID, екранний датчик відбитків пальців. Батарея на весь день. Водозахист IP69K.",
+            en: "Flagship smartphone Apple iPhone 17 Pro Max with maximum 2TB storage. Cosmic Orange color. 6.9-inch Dynamic Island display. Triple camera with latest processing. Face ID, under-display fingerprint sensor. All-day battery. IP69K water resistance.",
+            pl: "Flagowy smartfon Apple iPhone 17 Pro Max z maksymalnym magazynem 2TB. Kolor Cosmic Orange. Wyświetlacz Dynamic Island 6,9 cala. Potrójny aparat z najnowszym przetwarzaniem. Face ID, czytnik linii papilarnych pod ekranem. Bateria na cały dzień. Odporność IP69K."
+        }
+    },
+    {
+        id: 47,
+        image: "https://hotline.ua/img/tx/562/5620715115.jpg",
+        name: { uk: "Samsung Galaxy Tab S10 Ultra", en: "Samsung Galaxy Tab S10 Ultra", pl: "Samsung Galaxy Tab S10 Ultra" },
+        category: "tablets",
+        price: 34999,
+        recommended: true,
+        stock: 4,
+        description: {
+            uk: "Преміум планшет Samsung Galaxy Tab S10 Ultra. 14.6 дюймів Dynamic AMOLED дисплей 90 Hz. Snapdragon 8 Elite. 12GB RAM, 256GB SSD. Stylus S Pen у комплекті. Чотирична камера. Аккумулятор 11200 мАг. Для роботи та розваг.",
+            en: "Premium Samsung Galaxy Tab S10 Ultra tablet. 14.6-inch Dynamic AMOLED 90Hz display. Snapdragon 8 Elite. 12GB RAM, 256GB SSD. S Pen stylus included. Quad camera. 11200 mAh battery. For work and entertainment.",
+            pl: "Pracjum tablet Samsung Galaxy Tab S10 Ultra. Wyświetlacz Dynamic AMOLED 14,6 cala 90 Hz. Snapdragon 8 Elite. 12 GB RAM, 256 GB SSD. Rysik S Pen w zestawie. Cztery kamery. Bateria 11200 mAh. Do pracy i rozrywki."
+        }
+    },
+    {
+        id: 48,
+        image: "https://i.allo.ua/media/catalog/product/cache/3/image/524x494/602f0fa2c1f0d1ba5e241f914e856ff9/import/7336591224165773.webp",
+        name: { uk: "Смартфон OPPO A18 128GB Glowing Black", en: "OPPO A18 128GB Glowing Black Smartphone", pl: "Smartfon OPPO A18 128GB Glowing Black" },
+        category: "smartphones",
+        price: 7999,
+        recommended: true,
+        stock: 12,
+        description: {
+            uk: "Смартфон OPPO A18 128GB Glowing Black (Seller Refurbished). Процесор MediaTek Helio G85, GPU Mali-G52 MC2. Внутрішня пам'ять 128 ГБ. Карта пам'яті microSD. ОС Android. Bluetooth 5.3, Wi-Fi. Колір чорний. Гарантія 1 рік. Максимальна роздільна здатність відео.",
+            en: "OPPO A18 128GB Glowing Black smartphone (Seller Refurbished). MediaTek Helio G85 processor, Mali-G52 MC2 GPU. 128GB internal memory. microSD card support. Android OS. Bluetooth 5.3, Wi-Fi. Black color. 1-year warranty. Maximum video resolution.",
+            pl: "Smartfon OPPO A18 128GB Glowing Black (Seller Refurbished). Procesor MediaTek Helio G85, GPU Mali-G52 MC2. Pamięć wewnętrzna 128 GB. Karta pamięci microSD. System Android. Bluetooth 5.3, Wi-Fi. Kolor czarny. Gwarancja 1 rok. Maksymalna rozdzielczość wideo."
         }
     }
 ];
