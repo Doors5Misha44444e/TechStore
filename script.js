@@ -1,3 +1,4 @@
+
 const translations = {
     uk: {
         searchPlaceholder: "Пошук техніки...",
@@ -8,7 +9,8 @@ const translations = {
         cartEmpty: "Кошик порожній",
         total: "Разом:",
         checkout: "Оформити замовлення",
-        addToCart: "🛒 Додати в кошик",
+        addToCart: "🛒 В кошик",
+        outOfStock: "Немає в наявності",
         remove: "Видалити",
         checkoutTitle: "📦 Оформлення замовлення",
         deliveryInfo: "📍 Інформація про доставку",
@@ -27,6 +29,29 @@ const translations = {
         orderSuccess: "Замовлення оформлено!",
         orderSuccessText: "Дякуємо за покупку! Ми зв'яжемося з вами найближчим часом.",
         continueShopping: "Продовжити покупки",
+        inStock: "✓ В наявності",
+        lowStock: "⚠ Залишилось мало",
+        outOfStockLabel: "✗ Немає в наявності",
+        pcs: "шт.",
+        maxInCart: "Максимум на складі",
+        addedToCart: "Товар додано до кошика",
+        stockLimit: "Досягнуто ліміт товару",
+        login: "🔐 Вхід",
+        register: "📝 Реєстрація",
+        email: "Email",
+        password: "Пароль",
+        confirmPassword: "Підтвердити пароль",
+        loginBtn: "Увійти",
+        registerBtn: "Зареєструватися",
+        noAccount: "Немає акаунту?",
+        hasAccount: "Вже є акаунт?",
+        loginError: "Невірний email або пароль",
+        registerError: "Користувач з таким email вже існує",
+        passwordMismatch: "Паролі не співпадають",
+        passwordShort: "Пароль має бути мінімум 6 символів",
+        fillAllFields: "Заповніть всі поля",
+        welcome: "Вітаємо",
+        logout: "Вийти",
         categories: {
             laptops: "Ноутбуки",
             computers: "Комп'ютери",
@@ -53,6 +78,7 @@ const translations = {
         total: "Total:",
         checkout: "Checkout",
         addToCart: "🛒 Add to Cart",
+        outOfStock: "Out of Stock",
         remove: "Remove",
         checkoutTitle: "📦 Checkout",
         deliveryInfo: "📍 Delivery Information",
@@ -71,6 +97,29 @@ const translations = {
         orderSuccess: "Order Placed!",
         orderSuccessText: "Thank you for your purchase! We will contact you shortly.",
         continueShopping: "Continue Shopping",
+        inStock: "✓ In Stock",
+        lowStock: "⚠ Low Stock",
+        outOfStockLabel: "✗ Out of Stock",
+        pcs: "pcs",
+        maxInCart: "Max in stock",
+        addedToCart: "Added to cart",
+        stockLimit: "Stock limit reached",
+        login: "🔐 Login",
+        register: "📝 Register",
+        email: "Email",
+        password: "Password",
+        confirmPassword: "Confirm Password",
+        loginBtn: "Login",
+        registerBtn: "Register",
+        noAccount: "Don't have an account?",
+        hasAccount: "Already have an account?",
+        loginError: "Invalid email or password",
+        registerError: "User with this email already exists",
+        passwordMismatch: "Passwords don't match",
+        passwordShort: "Password must be at least 6 characters",
+        fillAllFields: "Fill all fields",
+        welcome: "Welcome",
+        logout: "Logout",
         categories: {
             laptops: "Laptops",
             computers: "Computers",
@@ -96,7 +145,8 @@ const translations = {
         cartEmpty: "Koszyk jest pusty",
         total: "Razem:",
         checkout: "Do kasy",
-        addToCart: "🛒 Dodaj do koszyka",
+        addToCart: "🛒 Do koszyka",
+        outOfStock: "Brak w magazynie",
         remove: "Usuń",
         checkoutTitle: "📦 Zamówienie",
         deliveryInfo: "📍 Informacje o dostawie",
@@ -115,6 +165,29 @@ const translations = {
         orderSuccess: "Zamówienie złożone!",
         orderSuccessText: "Dziękujemy za zakup! Skontaktujemy się z Tobą wkrótce.",
         continueShopping: "Kontynuuj zakupy",
+        inStock: "✓ Dostępny",
+        lowStock: "⚠ Mało sztuk",
+        outOfStockLabel: "✗ Brak w magazynie",
+        pcs: "szt.",
+        maxInCart: "Max na stanie",
+        addedToCart: "Dodano do koszyka",
+        stockLimit: "Osiągnięto limit",
+        login: "🔐 Logowanie",
+        register: "📝 Rejestracja",
+        email: "Email",
+        password: "Hasło",
+        confirmPassword: "Potwierdź hasło",
+        loginBtn: "Zaloguj",
+        registerBtn: "Zarejestruj",
+        noAccount: "Nie masz konta?",
+        hasAccount: "Masz już konto?",
+        loginError: "Nieprawidłowy email lub hasło",
+        registerError: "Użytkownik z tym emailem już istnieje",
+        passwordMismatch: "Hasła nie są zgodne",
+        passwordShort: "Hasło musi mieć co najmniej 6 znaków",
+        fillAllFields: "Wypełnij wszystkie pola",
+        welcome: "Witaj",
+        logout: "Wyloguj",
         categories: {
             laptops: "Laptopy",
             computers: "Komputery",
@@ -798,7 +871,11 @@ let currentLang = 'uk';
 let currentCurrency = 'UAH';
 let cart = [];
 let currentProduct = null;
+let currentUser = null;
 
+const authOverlay = document.getElementById('authOverlay');
+const loginForm = document.getElementById('loginForm');
+const registerForm = document.getElementById('registerForm');
 const searchInput = document.getElementById('searchInput');
 const recommendedSection = document.getElementById('recommendedSection');
 const searchSection = document.getElementById('searchSection');
@@ -818,14 +895,165 @@ const checkoutModal = document.getElementById('checkoutModal');
 const successModal = document.getElementById('successModal');
 
 document.addEventListener('DOMContentLoaded', () => {
-    renderRecommendedProducts();
+    checkAuth();
     setupEventListeners();
     updateTranslations();
 });
 
+function checkAuth() {
+    const savedUser = localStorage.getItem('cyberzone_user');
+    if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        showMainContent();
+    } else {
+        showAuthForm();
+    }
+}
+
+function showAuthForm() {
+    authOverlay.classList.remove('hidden');
+}
+
+function showMainContent() {
+    authOverlay.classList.add('hidden');
+    document.getElementById('userName').textContent = currentUser.name;
+    loadUserCart();
+    renderRecommendedProducts();
+}
+
+function loadUserCart() {
+    const savedCart = localStorage.getItem(`cyberzone_cart_${currentUser.email}`);
+    if (savedCart) {
+        cart = JSON.parse(savedCart);
+        updateCart();
+    }
+}
+
+function saveUserCart() {
+    if (currentUser) {
+        localStorage.setItem(`cyberzone_cart_${currentUser.email}`, JSON.stringify(cart));
+    }
+}
+
+function getUsers() {
+    const users = localStorage.getItem('cyberzone_users');
+    return users ? JSON.parse(users) : [];
+}
+
+function saveUsers(users) {
+    localStorage.setItem('cyberzone_users', JSON.stringify(users));
+}
+
+function login(email, password) {
+    const users = getUsers();
+    const user = users.find(u => u.email === email && u.password === password);
+    if (user) {
+        currentUser = { name: user.name, email: user.email };
+        localStorage.setItem('cyberzone_user', JSON.stringify(currentUser));
+        return true;
+    }
+    return false;
+}
+
+function register(name, email, password) {
+    const users = getUsers();
+    if (users.find(u => u.email === email)) {
+        return false;
+    }
+    users.push({ name, email, password });
+    saveUsers(users);
+    currentUser = { name, email };
+    localStorage.setItem('cyberzone_user', JSON.stringify(currentUser));
+    return true;
+}
+
+function logout() {
+    currentUser = null;
+    cart = [];
+    localStorage.removeItem('cyberzone_user');
+    updateCart();
+    showAuthForm();
+    loginForm.classList.remove('hidden');
+    registerForm.classList.add('hidden');
+}
+
 function setupEventListeners() {
+    document.getElementById('switchToRegister').addEventListener('click', () => {
+        loginForm.classList.add('hidden');
+        registerForm.classList.remove('hidden');
+        document.getElementById('loginError').classList.add('hidden');
+    });
+
+    document.getElementById('switchToLogin').addEventListener('click', () => {
+        registerForm.classList.add('hidden');
+        loginForm.classList.remove('hidden');
+        document.getElementById('registerError').classList.add('hidden');
+    });
+
+    document.getElementById('loginBtn').addEventListener('click', () => {
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        const errorEl = document.getElementById('loginError');
+
+        if (!email || !password) {
+            errorEl.textContent = translations[currentLang].fillAllFields;
+            errorEl.classList.remove('hidden');
+            return;
+        }
+
+        if (login(email, password)) {
+            document.getElementById('loginEmail').value = '';
+            document.getElementById('loginPassword').value = '';
+            errorEl.classList.add('hidden');
+            showMainContent();
+        } else {
+            errorEl.textContent = translations[currentLang].loginError;
+            errorEl.classList.remove('hidden');
+        }
+    });
+
+    document.getElementById('registerBtn').addEventListener('click', () => {
+        const name = document.getElementById('registerName').value.trim();
+        const email = document.getElementById('registerEmail').value.trim();
+        const password = document.getElementById('registerPassword').value;
+        const confirm = document.getElementById('registerConfirm').value;
+        const errorEl = document.getElementById('registerError');
+
+        if (!name || !email || !password || !confirm) {
+            errorEl.textContent = translations[currentLang].fillAllFields;
+            errorEl.classList.remove('hidden');
+            return;
+        }
+
+        if (password.length < 6) {
+            errorEl.textContent = translations[currentLang].passwordShort;
+            errorEl.classList.remove('hidden');
+            return;
+        }
+
+        if (password !== confirm) {
+            errorEl.textContent = translations[currentLang].passwordMismatch;
+            errorEl.classList.remove('hidden');
+            return;
+        }
+
+        if (register(name, email, password)) {
+            document.getElementById('registerName').value = '';
+            document.getElementById('registerEmail').value = '';
+            document.getElementById('registerPassword').value = '';
+            document.getElementById('registerConfirm').value = '';
+            errorEl.classList.add('hidden');
+            showMainContent();
+        } else {
+            errorEl.textContent = translations[currentLang].registerError;
+            errorEl.classList.remove('hidden');
+        }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+
     searchInput.addEventListener('input', handleSearch);
-    
+
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
@@ -837,7 +1065,7 @@ function setupEventListeners() {
             updateCart();
         });
     });
-    
+
     document.querySelectorAll('.currency-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             document.querySelectorAll('.currency-btn').forEach(b => b.classList.remove('active'));
@@ -848,19 +1076,19 @@ function setupEventListeners() {
             updateCart();
         });
     });
-    
+
     cartBtn.addEventListener('click', openCart);
     cartOverlay.addEventListener('click', closeCart);
     document.getElementById('closeCart').addEventListener('click', closeCart);
     checkoutBtn.addEventListener('click', openCheckout);
-    
+
     document.getElementById('closeProductModal').addEventListener('click', closeProductModal);
     document.getElementById('closeCheckoutModal').addEventListener('click', closeCheckoutModal);
     document.getElementById('closeSuccessModal').addEventListener('click', closeSuccessModal);
     document.getElementById('continueShoppingBtn').addEventListener('click', closeSuccessModal);
-    
+
     document.getElementById('checkoutForm').addEventListener('submit', handleCheckout);
-    
+
     productModal.addEventListener('click', (e) => {
         if (e.target === productModal) closeProductModal();
     });
@@ -874,23 +1102,23 @@ function setupEventListeners() {
 
 function handleSearch() {
     const query = searchInput.value.toLowerCase().trim();
-    
+
     if (query === '') {
         recommendedSection.classList.remove('hidden');
         searchSection.classList.add('hidden');
         return;
     }
-    
+
     recommendedSection.classList.add('hidden');
     searchSection.classList.remove('hidden');
-    
+
     const filteredProducts = products.filter(product => {
         const name = product.name[currentLang].toLowerCase();
         const description = product.description[currentLang].toLowerCase();
         const category = translations[currentLang].categories[product.category].toLowerCase();
         return name.includes(query) || description.includes(query) || category.includes(query);
     });
-    
+
     if (filteredProducts.length === 0) {
         searchGrid.innerHTML = '';
         noResults.classList.remove('hidden');
@@ -905,25 +1133,51 @@ function renderRecommendedProducts() {
     renderProducts(recommended, recommendedGrid);
 }
 
+function getStockBadge(stock) {
+    if (stock === 0) {
+        return `<span class="stock-badge out-of-stock">${translations[currentLang].outOfStockLabel}</span>`;
+    } else if (stock <= 3) {
+        return `<span class="stock-badge low-stock">${translations[currentLang].lowStock}: ${stock} ${translations[currentLang].pcs}</span>`;
+    } else {
+        return `<span class="stock-badge in-stock">${translations[currentLang].inStock}</span>`;
+    }
+}
+
 function renderProducts(productList, container) {
-    container.innerHTML = productList.map(product => `
-        <div class="product-card" onclick="openProductModal(${product.id})">
-            <div class="product-image">
-                <img src="${product.image}" alt="${product.name[currentLang]}" loading="lazy">
-            </div>
-            <div class="product-info">
-                <span class="product-category">${translations[currentLang].categories[product.category]}</span>
-                <h3 class="product-title">${product.name[currentLang]}</h3>
-                <p class="product-description">${product.description[currentLang].substring(0, 80)}...</p>
-                <div class="product-footer">
-                    <span class="product-price">${formatPrice(product.price)}</span>
-                    <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id})">
-                        ${translations[currentLang].addToCart}
-                    </button>
+    container.innerHTML = productList.map((product, index) => {
+        const inCartQty = getCartQuantity(product.id);
+        const availableStock = product.stock - inCartQty;
+        const isOutOfStock = availableStock <= 0;
+        const canAdd = availableStock > 0;
+
+        return `
+            <div class="product-card ${isOutOfStock ? 'out-of-stock' : ''}" style="animation-delay: ${index * 0.05}s" onclick="openProductModal(${product.id})">
+                ${getStockBadge(availableStock)}
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.name[currentLang]}" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">${translations[currentLang].categories[product.category]}</span>
+                    <h3 class="product-title">${product.name[currentLang]}</h3>
+                    <p class="product-description">${product.description[currentLang].substring(0, 80)}...</p>
+                    <div class="product-footer">
+                        <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                            <span class="product-price">${formatPrice(product.price)}</span>
+                            <span style="font-size: 0.85rem; font-weight: 600; color: ${availableStock <= 0 ? '#ef4444' : availableStock < 5 ? '#f59e0b' : '#10b981'};">📦 ${availableStock}</span>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id})" ${!canAdd ? 'disabled' : ''}>
+                            ${isOutOfStock ? translations[currentLang].outOfStock : translations[currentLang].addToCart}
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
+}
+
+function getCartQuantity(productId) {
+    const item = cart.find(item => item.id === productId);
+    return item ? item.quantity : 0;
 }
 
 function formatPrice(priceUAH) {
@@ -934,19 +1188,38 @@ function formatPrice(priceUAH) {
 function openProductModal(productId) {
     currentProduct = products.find(p => p.id === productId);
     if (!currentProduct) return;
-    
+
+    const inCartQty = getCartQuantity(currentProduct.id);
+    const availableStock = currentProduct.stock - inCartQty;
+    const canAdd = availableStock > 0;
+
     document.getElementById('modalProductImage').src = currentProduct.image;
     document.getElementById('modalProductImage').alt = currentProduct.name[currentLang];
     document.getElementById('modalProductCategory').textContent = translations[currentLang].categories[currentProduct.category];
     document.getElementById('modalProductTitle').textContent = currentProduct.name[currentLang];
     document.getElementById('modalProductDescription').textContent = currentProduct.description[currentLang];
     document.getElementById('modalProductPrice').textContent = formatPrice(currentProduct.price);
-    document.getElementById('modalAddToCart').textContent = translations[currentLang].addToCart;
-    document.getElementById('modalAddToCart').onclick = () => {
+
+    const stockEl = document.getElementById('modalProductStock');
+    if (currentProduct.stock === 0) {
+        stockEl.className = 'product-stock out-of-stock';
+        stockEl.textContent = translations[currentLang].outOfStockLabel;
+    } else if (currentProduct.stock <= 3) {
+        stockEl.className = 'product-stock low-stock';
+        stockEl.textContent = `${translations[currentLang].lowStock}: ${currentProduct.stock} ${translations[currentLang].pcs}`;
+    } else {
+        stockEl.className = 'product-stock in-stock';
+        stockEl.textContent = `${translations[currentLang].inStock}: ${currentProduct.stock} ${translations[currentLang].pcs}`;
+    }
+
+    const addBtn = document.getElementById('modalAddToCart');
+    addBtn.textContent = currentProduct.stock === 0 ? translations[currentLang].outOfStock : translations[currentLang].addToCart;
+    addBtn.disabled = !canAdd;
+    addBtn.onclick = () => {
         addToCart(currentProduct.id);
         closeProductModal();
     };
-    
+
     productModal.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
@@ -958,40 +1231,69 @@ function closeProductModal() {
 
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
-    if (!product) return;
-    
+    if (!product || product.stock === 0) return;
+
     const existingItem = cart.find(item => item.id === productId);
+    const currentQty = existingItem ? existingItem.quantity : 0;
+
+    if (currentQty >= product.stock) {
+        showNotification(translations[currentLang].stockLimit, true);
+        return;
+    }
+
     if (existingItem) {
         existingItem.quantity++;
     } else {
         cart.push({ ...product, quantity: 1 });
     }
-    
+
+    saveUserCart();
     updateCart();
-    showNotification();
+    renderRecommendedProducts();
+    if (searchInput.value) handleSearch();
+    showNotification(translations[currentLang].addedToCart);
 }
 
 function removeFromCart(productId) {
+    const item = cart.find(item => item.id === productId);
+    
     cart = cart.filter(item => item.id !== productId);
+    saveUserCart();
     updateCart();
+    renderRecommendedProducts();
+    if (searchInput.value) handleSearch();
 }
 
 function updateQuantity(productId, change) {
     const item = cart.find(item => item.id === productId);
     if (!item) return;
-    
-    item.quantity += change;
-    if (item.quantity <= 0) {
+
+    const product = products.find(p => p.id === productId);
+    const newQty = item.quantity + change;
+
+    if (newQty <= 0) {
         removeFromCart(productId);
-    } else {
+    } else if (change > 0 && product.stock > 0) {
+        item.quantity = newQty;
+        saveUserCart();
         updateCart();
+        renderRecommendedProducts();
+        if (searchInput.value) handleSearch();
+    } else if (change < 0) {
+        item.quantity = newQty;
+        saveUserCart();
+        updateCart();
+        renderRecommendedProducts();
+        if (searchInput.value) handleSearch();
+    } else {
+        showNotification(translations[currentLang].stockLimit, true);
     }
 }
 
 function updateCart() {
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     cartCount.textContent = totalItems;
-    
+
     if (cart.length === 0) {
         cartEmpty.classList.remove('hidden');
         cartItems.innerHTML = '';
@@ -1000,25 +1302,31 @@ function updateCart() {
     } else {
         cartEmpty.classList.add('hidden');
         checkoutBtn.disabled = false;
-        
+
         const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         totalPrice.textContent = formatPrice(total);
-        
-        cartItems.innerHTML = cart.map(item => `
-            <div class="cart-item">
-                <img src="${item.image}" alt="${item.name[currentLang]}" class="cart-item-image">
-                <div class="cart-item-info">
-                    <h4 class="cart-item-title">${item.name[currentLang]}</h4>
-                    <p class="cart-item-price">${formatPrice(item.price)}</p>
-                    <div class="cart-item-quantity">
-                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
-                        <span>${item.quantity}</span>
-                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+
+        cartItems.innerHTML = cart.map(item => {
+            const product = products.find(p => p.id === item.id);
+            const maxReached = item.quantity >= product.stock;
+
+            return `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name[currentLang]}" class="cart-item-image">
+                    <div class="cart-item-info">
+                        <h4 class="cart-item-title">${item.name[currentLang]}</h4>
+                        <p class="cart-item-price">${formatPrice(item.price)}</p>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)" ${maxReached ? 'disabled' : ''}>+</button>
+                        </div>
+                        ${maxReached ? `<p class="cart-item-max">${translations[currentLang].maxInCart}</p>` : ''}
                     </div>
+                    <button class="remove-item-btn" onclick="removeFromCart(${item.id})">×</button>
                 </div>
-                <button class="remove-item-btn" onclick="removeFromCart(${item.id})">×</button>
-            </div>
-        `).join('');
+            `;
+        }).join('');
     }
 }
 
@@ -1034,12 +1342,21 @@ function closeCart() {
     document.body.style.overflow = '';
 }
 
-function showNotification() {
+function showNotification(message, isError = false) {
     const notification = document.getElementById('notification');
+    const textEl = document.getElementById('notificationText');
+    textEl.textContent = message;
+
+    if (isError) {
+        notification.classList.add('error');
+    } else {
+        notification.classList.remove('error');
+    }
+
     notification.classList.add('show');
     setTimeout(() => {
         notification.classList.remove('show');
-    }, 2000);
+    }, 2500);
 }
 
 function openCheckout() {
@@ -1051,10 +1368,21 @@ function openCheckout() {
             <span>${formatPrice(item.price * item.quantity)}</span>
         </div>
     `).join('');
-    
+
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     document.getElementById('orderTotal').textContent = formatPrice(total);
-    
+
+    if (currentUser) {
+        document.getElementById('nameInput').value = currentUser.name;
+    }
+
+    updateCheckoutTranslations();
+
+    checkoutModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function updateCheckoutTranslations() {
     document.getElementById('checkoutTitle').textContent = translations[currentLang].checkoutTitle;
     document.getElementById('deliveryInfoLabel').textContent = translations[currentLang].deliveryInfo;
     document.getElementById('nameLabel').textContent = translations[currentLang].name;
@@ -1069,9 +1397,6 @@ function openCheckout() {
     document.getElementById('orderSummaryLabel').textContent = translations[currentLang].orderSummary;
     document.getElementById('totalToPayLabel').textContent = translations[currentLang].totalToPay;
     document.getElementById('placeOrderBtn').textContent = translations[currentLang].placeOrder;
-    
-    checkoutModal.classList.add('active');
-    document.body.style.overflow = 'hidden';
 }
 
 function closeCheckoutModal() {
@@ -1081,16 +1406,27 @@ function closeCheckoutModal() {
 
 function handleCheckout(e) {
     e.preventDefault();
+
+    cart.forEach(cartItem => {
+        const product = products.find(p => p.id === cartItem.id);
+        if (product) {
+            product.stock -= cartItem.quantity;
+        }
+    });
+
     closeCheckoutModal();
     document.getElementById('successTitle').textContent = translations[currentLang].orderSuccess;
     document.getElementById('successText').textContent = translations[currentLang].orderSuccessText;
     document.getElementById('continueShoppingBtn').textContent = translations[currentLang].continueShopping;
-    
+
     successModal.classList.add('active');
     createConfetti();
+
     cart = [];
+    saveUserCart();
     updateCart();
-    
+    renderRecommendedProducts();
+
     document.getElementById('checkoutForm').reset();
 }
 
@@ -1102,9 +1438,9 @@ function closeSuccessModal() {
 function createConfetti() {
     const confettiContainer = document.getElementById('confetti');
     confettiContainer.innerHTML = '';
-    
+
     const colors = ['#FFD93D', '#6BCB77', '#4D96FF', '#FF6B6B', '#C9B1FF'];
-    
+
     for (let i = 0; i < 100; i++) {
         const confetti = document.createElement('div');
         confetti.className = 'confetti-piece';
@@ -1114,7 +1450,7 @@ function createConfetti() {
         confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
         confettiContainer.appendChild(confetti);
     }
-    
+
     setTimeout(() => {
         confettiContainer.innerHTML = '';
     }, 4000);
@@ -1129,4 +1465,17 @@ function updateTranslations() {
     document.getElementById('cartEmptyText').textContent = translations[currentLang].cartEmpty;
     document.getElementById('totalLabel').textContent = translations[currentLang].total;
     checkoutBtn.textContent = translations[currentLang].checkout;
+
+    document.getElementById('loginTitle').textContent = translations[currentLang].login;
+    document.getElementById('registerTitle').textContent = translations[currentLang].register;
+    document.getElementById('loginEmailLabel').textContent = translations[currentLang].email;
+    document.getElementById('loginPasswordLabel').textContent = translations[currentLang].password;
+    document.getElementById('registerNameLabel').textContent = translations[currentLang].name;
+    document.getElementById('registerEmailLabel').textContent = translations[currentLang].email;
+    document.getElementById('registerPasswordLabel').textContent = translations[currentLang].password;
+    document.getElementById('registerConfirmLabel').textContent = translations[currentLang].confirmPassword;
+    document.getElementById('loginBtn').textContent = translations[currentLang].loginBtn;
+    document.getElementById('registerBtn').textContent = translations[currentLang].registerBtn;
+    document.getElementById('switchToRegister').innerHTML = `${translations[currentLang].noAccount} <span>${translations[currentLang].registerBtn}</span>`;
+    document.getElementById('switchToLogin').innerHTML = `${translations[currentLang].hasAccount} <span>${translations[currentLang].loginBtn}</span>`;
 }
