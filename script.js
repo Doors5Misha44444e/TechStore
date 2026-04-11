@@ -52,6 +52,25 @@ const translations = {
         fillAllFields: "Заповніть всі поля",
         welcome: "Вітаємо",
         logout: "Вийти",
+        theme: "🎨 Тема",
+        themeLight: "☀️ Світла",
+        themeDark: "🌙 Темна",
+        themeEqualizer: "🎛️ Еквалайзер",
+        secretProduct: "🔐 Секретний товар",
+        enterCode: "Введіть код:",
+        unlock: "Розблокувати",
+        locked: "🔒 Заблокований",
+        lockCode: "Код заблокований",
+        secretCodeTitle: "🔐 Ваш секретний код",
+        codeRevealedOnce: "Код показується тільки один раз. Збережіть його!",
+        purchaseHistory: "📜 Історія покупок",
+        purchaseCount: "Всього покупок:",
+        purchaseDate: "Дата:",
+        discountApplied: "✓ Знижка активирована!",
+        discountText: "20% знижка на всі товари",
+        applyDiscountCode: "Введіть код для знижки",
+        applyBtn: "Застосувати",
+        noPurchases: "У вас ще немає покупок",
         categories: {
             laptops: "Ноутбуки",
             computers: "Комп'ютери",
@@ -120,6 +139,25 @@ const translations = {
         fillAllFields: "Fill all fields",
         welcome: "Welcome",
         logout: "Logout",
+        theme: "🎨 Theme",
+        themeLight: "☀️ Light",
+        themeDark: "🌙 Dark",
+        themeEqualizer: "🎛️ Equalizer",
+        secretProduct: "🔐 Secret Product",
+        enterCode: "Enter code:",
+        unlock: "Unlock",
+        locked: "🔒 Locked",
+        lockCode: "Code locked",
+        secretCodeTitle: "🔐 Your Secret Code",
+        codeRevealedOnce: "Code shown only once. Save it!",
+        purchaseHistory: "📜 Purchase History",
+        purchaseCount: "Total Purchases:",
+        purchaseDate: "Date:",
+        discountApplied: "✓ Discount Applied!",
+        discountText: "20% discount on all items",
+        applyDiscountCode: "Enter discount code",
+        applyBtn: "Apply",
+        noPurchases: "You have no purchases yet",
         categories: {
             laptops: "Laptops",
             computers: "Computers",
@@ -188,6 +226,25 @@ const translations = {
         fillAllFields: "Wypełnij wszystkie pola",
         welcome: "Witaj",
         logout: "Wyloguj",
+        theme: "🎨 Motyw",
+        themeLight: "☀️ Jasny",
+        themeDark: "🌙 Ciemny",
+        themeEqualizer: "🎛️ Korektor",
+        secretProduct: "🔐 Produkt Tajny",
+        enterCode: "Wpisz kod:",
+        unlock: "Odblokuj",
+        locked: "🔒 Zablokowany",
+        lockCode: "Kod zablokowany",
+        secretCodeTitle: "🔐 Twój tajny kod",
+        codeRevealedOnce: "Kod wyświetlany tylko raz. Zapisz go!",
+        purchaseHistory: "📜 Historia Zakupów",
+        purchaseCount: "Razem zakupów:",
+        purchaseDate: "Data:",
+        discountApplied: "✓ Rabat Aktywowany!",
+        discountText: "20% rabat na wszystkie produkty",
+        applyDiscountCode: "Wpisz kod rabatu",
+        applyBtn: "Zastosuj",
+        noPurchases: "Nie masz jeszcze żadnych zakupów",
         categories: {
             laptops: "Laptopy",
             computers: "Komputery",
@@ -852,6 +909,22 @@ const products = [
             en: "OPPO A18 128GB Glowing Black smartphone (Seller Refurbished). MediaTek Helio G85 processor, Mali-G52 MC2 GPU. 128GB internal memory. microSD card support. Android OS. Bluetooth 5.3, Wi-Fi. Black color. 1-year warranty. Maximum video resolution.",
             pl: "Smartfon OPPO A18 128GB Glowing Black (Seller Refurbished). Procesor MediaTek Helio G85, GPU Mali-G52 MC2. Pamięć wewnętrzna 128 GB. Karta pamięci microSD. System Android. Bluetooth 5.3, Wi-Fi. Kolor czarny. Gwarancja 1 rok. Maksymalna rozdzielczość wideo."
         }
+    },
+    {
+        id: 999,
+        image: "https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?w=400&h=300&fit=crop",
+        name: { uk: "🔐 СЕКРЕТНИЙ ТОВАР", en: "🔐 SECRET ITEM", pl: "🔐 TAJNY PRODUKT" },
+        category: "accessories",
+        price: 99999,
+        recommended: false,
+        stock: 1,
+        secret: true,
+        unlocked: false,
+        description: {
+            uk: "Це легендарний секретний товар! Розблокуйте його спеціальним кодом, отриманим після першої покупки. Цей товар доступний тільки для VIP користувачів!",
+            en: "This is the legendary secret item! Unlock it with a special code received after your first purchase. This item is available only to VIP users!",
+            pl: "To legendarny tajny produkt! Odblokuj go specjalnym kodem otrzymanym po pierwszym zakupie. Ten produkt jest dostępny tylko dla użytkowników VIP!"
+        }
     }
 ];
 
@@ -872,6 +945,8 @@ let currentCurrency = 'UAH';
 let cart = [];
 let currentProduct = null;
 let currentUser = null;
+let discountActive = false;
+let userSecretCode = null;
 
 const authOverlay = document.getElementById('authOverlay');
 const loginForm = document.getElementById('loginForm');
@@ -919,6 +994,11 @@ function showMainContent() {
     document.getElementById('userName').textContent = currentUser.name;
     loadUserCart();
     renderRecommendedProducts();
+    
+    // Load discount and secret code state
+    userSecretCode = getOrCreateSecretCode();
+    const purchaseCount = updatePurchaseCount();
+    discountActive = purchaseCount >= 12;
 }
 
 function loadUserCart() {
@@ -1077,9 +1157,48 @@ function setupEventListeners() {
         });
     });
 
+    // Theme switcher
+    let currentTheme = localStorage.getItem('cyberzone_theme') || 'light';
+    document.body.classList.add(`theme-${currentTheme}`);
+    document.querySelector(`[data-theme="${currentTheme}"]`)?.classList.add('active');
+
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentTheme = btn.dataset.theme;
+            document.body.classList.remove('theme-light', 'theme-dark', 'theme-equalizer');
+            document.body.classList.add(`theme-${currentTheme}`);
+            localStorage.setItem('cyberzone_theme', currentTheme);
+        });
+    });
+
     cartBtn.addEventListener('click', openCart);
     cartOverlay.addEventListener('click', closeCart);
     document.getElementById('closeCart').addEventListener('click', closeCart);
+    
+    const historyBtn = document.getElementById('historyBtn');
+    if (historyBtn) {
+        historyBtn.addEventListener('click', openPurchaseHistory);
+    }
+    
+    const codeBtn = document.getElementById('codeBtn');
+    if (codeBtn) {
+        codeBtn.addEventListener('click', openCodeModal);
+    }
+    
+    const submitCodeBtn = document.getElementById('submitCodeBtn');
+    if (submitCodeBtn) {
+        submitCodeBtn.addEventListener('click', submitCode);
+    }
+    
+    const codeInput = document.getElementById('codeInput');
+    if (codeInput) {
+        codeInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') submitCode();
+        });
+    }
+    
     checkoutBtn.addEventListener('click', openCheckout);
 
     document.getElementById('closeProductModal').addEventListener('click', closeProductModal);
@@ -1097,6 +1216,36 @@ function setupEventListeners() {
     });
     successModal.addEventListener('click', (e) => {
         if (e.target === successModal) closeSuccessModal();
+    });
+
+    // New modal event listeners
+    const secretUnlockModal = document.getElementById('secretUnlockModal');
+    const discountModal = document.getElementById('discountModal');
+    const historyModal = document.getElementById('historyModal');
+    const codeModal = document.getElementById('codeModal');
+    
+    document.getElementById('closeSecretModal')?.addEventListener('click', closeSecretUnlockModal);
+    document.getElementById('closeDiscountModal')?.addEventListener('click', closeDiscountModal);
+    document.getElementById('closeHistoryModal')?.addEventListener('click', closePurchaseHistory);
+    document.getElementById('closeDiscountModalBtn')?.addEventListener('click', closeDiscountModal);
+    document.getElementById('closeCodeModal')?.addEventListener('click', closeCodeModal);
+    
+    if (codeModal) {
+        codeModal.addEventListener('click', (e) => {
+            if (e.target === codeModal) closeCodeModal();
+        });
+    }
+    
+    secretUnlockModal?.addEventListener('click', (e) => {
+        if (e.target === secretUnlockModal) closeSecretUnlockModal();
+    });
+    
+    discountModal?.addEventListener('click', (e) => {
+        if (e.target === discountModal) closeDiscountModal();
+    });
+    
+    historyModal?.addEventListener('click', (e) => {
+        if (e.target === historyModal) closePurchaseHistory();
     });
 }
 
@@ -1149,24 +1298,26 @@ function renderProducts(productList, container) {
         const availableStock = product.stock - inCartQty;
         const isOutOfStock = availableStock <= 0;
         const canAdd = availableStock > 0;
+        const isSecretLocked = product.secret && !product.unlocked;
 
         return `
-            <div class="product-card ${isOutOfStock ? 'out-of-stock' : ''}" style="animation-delay: ${index * 0.05}s" onclick="openProductModal(${product.id})">
+            <div class="product-card ${isOutOfStock ? 'out-of-stock' : ''} ${isSecretLocked ? 'secret-product' : ''}" style="animation-delay: ${index * 0.05}s" onclick="${isSecretLocked ? `openSecretUnlockModal(${product.id})` : `openProductModal(${product.id})`}">
                 ${getStockBadge(availableStock)}
-                <div class="product-image">
+                <div class="product-image" style="${isSecretLocked ? 'filter: blur(2px); position: relative;' : ''}">
+                    ${isSecretLocked ? '<div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); border-radius: 12px;"><span style="font-size: 3rem;">🔐</span></div>' : ''}
                     <img src="${product.image}" alt="${product.name[currentLang]}" loading="lazy">
                 </div>
                 <div class="product-info">
-                    <span class="product-category">${translations[currentLang].categories[product.category]}</span>
+                    <span class="product-category">${isSecretLocked ? translations[currentLang].locked : translations[currentLang].categories[product.category]}</span>
                     <h3 class="product-title">${product.name[currentLang]}</h3>
                     <p class="product-description">${product.description[currentLang].substring(0, 80)}...</p>
                     <div class="product-footer">
                         <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
                             <span class="product-price">${formatPrice(product.price)}</span>
-                            <span style="font-size: 0.85rem; font-weight: 600; color: ${availableStock <= 0 ? '#ef4444' : availableStock < 5 ? '#f59e0b' : '#10b981'};">📦 ${availableStock}</span>
+                            <span style="font-size: 0.85rem; font-weight: 600; color: ${isSecretLocked ? '#f59e0b' : availableStock <= 0 ? '#ef4444' : availableStock < 5 ? '#f59e0b' : '#10b981'};">📦 ${isSecretLocked ? '🔐' : availableStock}</span>
                         </div>
-                        <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id})" ${!canAdd ? 'disabled' : ''}>
-                            ${isOutOfStock ? translations[currentLang].outOfStock : translations[currentLang].addToCart}
+                        <button class="add-to-cart-btn" onclick="event.stopPropagation(); ${isSecretLocked ? `openSecretUnlockModal(${product.id})` : `addToCart(${product.id})`}" ${!canAdd && !isSecretLocked ? 'disabled' : ''}>
+                            ${isSecretLocked ? translations[currentLang].unlock : isOutOfStock ? translations[currentLang].outOfStock : translations[currentLang].addToCart}
                         </button>
                     </div>
                 </div>
@@ -1180,8 +1331,12 @@ function getCartQuantity(productId) {
     return item ? item.quantity : 0;
 }
 
-function formatPrice(priceUAH) {
-    const converted = Math.round(priceUAH * currencyRates[currentCurrency]);
+function formatPrice(priceUAH, applyDiscount = true) {
+    let price = priceUAH;
+    if (applyDiscount && discountActive) {
+        price = price * 0.8; // Apply 20% discount
+    }
+    const converted = Math.round(price * currencyRates[currentCurrency]);
     return `${currencySymbols[currentCurrency]}${converted.toLocaleString()}`;
 }
 
@@ -1407,12 +1562,28 @@ function closeCheckoutModal() {
 function handleCheckout(e) {
     e.preventDefault();
 
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const cartItems = cart.map(item => ({
+        id: item.id,
+        name: products.find(p => p.id === item.id)?.name,
+        quantity: item.quantity,
+        price: item.price
+    }));
+
     cart.forEach(cartItem => {
         const product = products.find(p => p.id === cartItem.id);
         if (product) {
             product.stock -= cartItem.quantity;
         }
     });
+
+    savePurchaseToHistory(cartItems, total);
+    incrementPurchaseCount();
+    if (updatePurchaseCount() === 1) {
+        setTimeout(() => {
+            showSecretCodeModal();
+        }, 1500);
+    }
 
     closeCheckoutModal();
     document.getElementById('successTitle').textContent = translations[currentLang].orderSuccess;
@@ -1428,6 +1599,11 @@ function handleCheckout(e) {
     renderRecommendedProducts();
 
     document.getElementById('checkoutForm').reset();
+}
+
+function showSecretCodeModal() {
+    const secretCode = getOrCreateSecretCode();
+    alert(`${translations[currentLang].secretCodeTitle}\n\n${secretCode}\n\n${translations[currentLang].codeRevealedOnce}`);
 }
 
 function closeSuccessModal() {
@@ -1479,3 +1655,237 @@ function updateTranslations() {
     document.getElementById('switchToRegister').innerHTML = `${translations[currentLang].noAccount} <span>${translations[currentLang].registerBtn}</span>`;
     document.getElementById('switchToLogin').innerHTML = `${translations[currentLang].hasAccount} <span>${translations[currentLang].loginBtn}</span>`;
 }
+
+
+function generateSecretCode() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let code = '';
+    for (let i = 0; i < 8; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return code;
+}
+
+function getOrCreateSecretCode() {
+    if (!currentUser) return null;
+    const key = `cyberzone_secret_code_${currentUser.email}`;
+    let code = localStorage.getItem(key);
+    
+    if (!code) {
+        code = generateSecretCode();
+        localStorage.setItem(key, code);
+    }
+    return code;
+}
+
+function updatePurchaseCount() {
+    if (!currentUser) return;
+    const key = `cyberzone_purchase_count_${currentUser.email}`;
+    const count = parseInt(localStorage.getItem(key) || '0');
+    return count;
+}
+
+function incrementPurchaseCount() {
+    if (!currentUser) return;
+    const key = `cyberzone_purchase_count_${currentUser.email}`;
+    const count = parseInt(localStorage.getItem(key) || '0');
+    localStorage.setItem(key, (count + 1).toString());
+
+    if (count + 1 === 12) {
+        showDiscountModal();
+    }
+}
+
+function savePurchaseToHistory(items, total) {
+    if (!currentUser) return;
+    const key = `cyberzone_purchase_history_${currentUser.email}`;
+    let history = JSON.parse(localStorage.getItem(key) || '[]');
+    
+    const purchaseRecord = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString(currentLang === 'uk' ? 'uk-UA' : currentLang === 'pl' ? 'pl-PL' : 'en-US'),
+        items: items,
+        total: total,
+        timestamp: new Date().getTime()
+    };
+    
+    history.push(purchaseRecord);
+    localStorage.setItem(key, JSON.stringify(history));
+}
+
+
+function openSecretUnlockModal(productId) {
+    const secretUnlockModal = document.getElementById('secretUnlockModal');
+    document.getElementById('secretCodeInput').value = '';
+    document.getElementById('secretError').classList.add('hidden');
+    document.getElementById('secretTitle').textContent = translations[currentLang].secretProduct;
+    document.getElementById('secretMessage').textContent = translations[currentLang].enterCode;
+    document.getElementById('unlockBtn').textContent = translations[currentLang].unlock;
+    
+    secretUnlockModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    document.getElementById('unlockBtn').onclick = () => validateSecretCode(productId);
+}
+
+function closeSecretUnlockModal() {
+    document.getElementById('secretUnlockModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function validateSecretCode(productId) {
+    const input = document.getElementById('secretCodeInput').value.trim().toUpperCase();
+    const correctCode = getOrCreateSecretCode();
+    const errorEl = document.getElementById('secretError');
+    
+    if (input === correctCode) {
+        errorEl.classList.add('hidden');
+        closeSecretUnlockModal();
+        const product = products.find(p => p.id === productId);
+        if (product) {
+            product.unlocked = true;
+            openProductModal(productId);
+        }
+    } else {
+        errorEl.textContent = '❌ ' + translations[currentLang].lockCode;
+        errorEl.classList.remove('hidden');
+    }
+}
+
+function showDiscountModal() {
+    const discountModal = document.getElementById('discountModal');
+    const discountCode = 'DISCOUNT20';
+    
+    document.getElementById('discountTitle').textContent = '🎉 Вітаємо з 12 покупками!';
+    document.getElementById('discountMessage').textContent = translations[currentLang].discountText;
+    document.getElementById('discountCodeInput').value = discountCode;
+    
+    const copyBtn = document.getElementById('copyDiscountBtn');
+    copyBtn.textContent = translations[currentLang].applyBtn;
+    copyBtn.onclick = () => copyToClipboard(discountCode, copyBtn);
+    
+    const closeBtn = document.getElementById('closeDiscountModalBtn');
+    closeBtn.textContent = translations[currentLang].continueShopping;
+    closeBtn.onclick = closeDiscountModal;
+    
+    discountModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeDiscountModal() {
+    document.getElementById('discountModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function openCodeModal() {
+    const codeModal = document.getElementById('codeModal');
+    document.getElementById('codeInput').value = '';
+    document.getElementById('codeError').classList.add('hidden');
+    document.getElementById('codeSuccess').classList.add('hidden');
+    codeModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('codeInput').focus();
+}
+
+function closeCodeModal() {
+    const codeModal = document.getElementById('codeModal');
+    codeModal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function submitCode() {
+    const codeInput = document.getElementById('codeInput').value.trim().toUpperCase();
+    const codeError = document.getElementById('codeError');
+    const codeSuccess = document.getElementById('codeSuccess');
+    
+    codeError.classList.add('hidden');
+    codeSuccess.classList.add('hidden');
+    
+    if (!codeInput) {
+        codeError.textContent = 'Будь ласка, введіть код';
+        codeError.classList.remove('hidden');
+        return;
+    }
+
+    if (codeInput === 'DISCOUNT20') {
+        discountActive = true;
+        localStorage.setItem(`cyberzone_discount_active_${currentUser.email}`, 'true');
+        codeSuccess.textContent = '✓ Знижка застосована! -20% на всі товари';
+        codeSuccess.classList.remove('hidden');
+        setTimeout(() => {
+            closeCodeModal();
+            updateCart();
+        }, 1500);
+    } else {
+        codeError.textContent = '✗ Невірний код';
+        codeError.classList.remove('hidden');
+    }
+}
+
+function openPurchaseHistory() {
+    const historyModal = document.getElementById('historyModal');
+    const historyList = document.getElementById('historyList');
+    
+    const purchaseCount = updatePurchaseCount();
+    document.getElementById('purchaseCountDisplay').textContent = purchaseCount;
+    
+    const key = `cyberzone_purchase_history_${currentUser.email}`;
+    const history = JSON.parse(localStorage.getItem(key) || '[]');
+    
+    let totalSpent = 0;
+    history.forEach(purchase => {
+        totalSpent += purchase.total;
+    });
+    
+    document.getElementById('totalSpentDisplay').textContent = formatPrice(totalSpent);
+    
+    if (history.length === 0) {
+        historyList.innerHTML = `<p class="no-history-text">${translations[currentLang].noPurchases}</p>`;
+    } else {
+        historyList.innerHTML = history.reverse().map(purchase => {
+            const itemsList = purchase.items.map(item => 
+                `<span>${item.name[currentLang]}</span>`
+            ).join(', ');
+            
+            return `
+                <div class="history-item">
+                    <div class="history-item-header">
+                        <span class="history-item-name">${itemsList}</span>
+                        <span class="history-item-price">${formatPrice(purchase.total)}</span>
+                    </div>
+                    <div class="history-item-date">${purchase.date}</div>
+                </div>
+            `;
+        }).join('');
+    }
+    
+    const secretCode = getOrCreateSecretCode();
+    const secretCodeDisplay = document.getElementById('savedSecretCode');
+    secretCodeDisplay.value = secretCode;
+    
+    const copySecretBtn = document.getElementById('copySecretCodeBtn');
+    copySecretBtn.onclick = () => copyToClipboard(secretCode, copySecretBtn);
+    
+    document.getElementById('historyTitle').textContent = translations[currentLang].purchaseHistory;
+    document.getElementById('countLabel').textContent = translations[currentLang].purchaseCount;
+    document.getElementById('totalSpentLabel').textContent = 'Витрачено:';
+    
+    historyModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closePurchaseHistory() {
+    document.getElementById('historyModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function copyToClipboard(text, button) {
+    navigator.clipboard.writeText(text).then(() => {
+        const originalText = button.textContent;
+        button.textContent = '✓ Скопійовано!';
+        setTimeout(() => {
+            button.textContent = originalText;
+        }, 2000);
+    });
+}
+

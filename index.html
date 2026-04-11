@@ -73,6 +73,16 @@
                     <span class="user-name" id="userName"></span>
                     <button class="logout-btn" id="logoutBtn" title="Вийти">🚪</button>
                 </div>
+
+                <button class="history-btn" id="historyBtn" title="📜 Історія покупок">📜</button>
+                
+                <button class="code-btn" id="codeBtn" title="🎟️ Введіть код">🎟️</button>
+                
+                <div class="switcher">
+                    <button class="theme-btn" data-theme="light" title="☀️ Light Theme">☀️</button>
+                    <button class="theme-btn" data-theme="dark" title="🌙 Dark Theme">🌙</button>
+                    <button class="theme-btn" data-theme="equalizer" title="🎛️ Equalizer Theme">🎛️</button>
+                </div>
                 
                 <div class="switcher">
                     <button class="lang-btn active" data-lang="uk">🇺🇦 UA</button>
@@ -224,6 +234,83 @@
 
     <div class="notification" id="notification">
         <span>✓</span> <span id="notificationText">Товар додано до кошика</span>
+    </div>
+
+    <div class="modal" id="secretUnlockModal">
+        <div class="modal-content secret-modal-content">
+            <button class="close-modal-btn" id="closeSecretModal">×</button>
+            <div class="secret-modal-body">
+                <div class="secret-icon">🔐</div>
+                <h2 id="secretTitle">🔐 Секретний товар</h2>
+                <p id="secretMessage">Введіть спеціальний код для розблокування цього товара</p>
+                <div class="secret-form">
+                    <input type="text" id="secretCodeInput" placeholder="Введіть код..." class="secret-code-input">
+                    <button id="unlockBtn" class="secret-btn">Розблокувати</button>
+                </div>
+                <div class="secret-error hidden" id="secretError"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="codeModal">
+        <div class="modal-content code-modal-content">
+            <button class="close-modal-btn" id="closeCodeModal">×</button>
+            <h2 id="codeModalTitle">🎟️ Введіть код</h2>
+            <div class="code-input-form">
+                <input type="text" id="codeInput" placeholder="Введіть ваш код..." class="code-input" maxlength="20">
+                <button id="submitCodeBtn" class="code-btn-submit">✓ Застосувати</button>
+            </div>
+            <div class="code-error hidden" id="codeError"></div>
+            <div class="code-success hidden" id="codeSuccess"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="discountModal">
+        <div class="modal-content discount-modal-content">
+            <button class="close-modal-btn" id="closeDiscountModal">×</button>
+            <div class="discount-modal-body">
+                <div class="discount-icon">🎉</div>
+                <h2 id="discountTitle">🎉 Вітаємо з 12 покупками!</h2>
+                <p id="discountMessage">У вас є 20% знижка на всі товари</p>
+                <div class="discount-form">
+                    <input type="text" id="discountCodeInput" placeholder="Код знижки: DISCOUNT20" class="discount-code-input" readonly>
+                    <button id="copyDiscountBtn" class="discount-btn">📋 Копіювати</button>
+                </div>
+                <button id="closeDiscountModalBtn" class="continue-btn">Продовжити</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="historyModal">
+        <div class="modal-content history-modal-content">
+            <button class="close-modal-btn" id="closeHistoryModal">×</button>
+            <h2 id="historyTitle">📜 Історія покупок</h2>
+            <div class="history-container">
+                <div class="history-stats">
+                    <div class="stat-item">
+                        <span class="stat-label" id="countLabel">Всього покупок:</span>
+                        <span class="stat-value" id="purchaseCountDisplay">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label" id="totalSpentLabel">Витрачено:</span>
+                        <span class="stat-value" id="totalSpentDisplay">₴0</span>
+                    </div>
+                </div>
+
+                <div class="history-list" id="historyList">
+                    <p id="noHistoryText">У вас ще немає покупок</p>
+                </div>
+
+                <div class="secret-code-section">
+                    <h3 id="secretCodeLabel">🔐 Ваш секретний код</h3>
+                    <div class="secret-code-box">
+                        <input type="text" id="savedSecretCode" class="secret-code-display" readonly>
+                        <button id="copySecretCodeBtn" class="copy-btn">📋 Копіювати</button>
+                    </div>
+                    <p class="secret-code-note" id="secretCodeNote">Код показується тільки один раз</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
