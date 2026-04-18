@@ -994,8 +994,6 @@ function showMainContent() {
     document.getElementById('userName').textContent = currentUser.name;
     loadUserCart();
     renderRecommendedProducts();
-    
-    // Load discount and secret code state
     userSecretCode = getOrCreateSecretCode();
     const purchaseCount = updatePurchaseCount();
     discountActive = purchaseCount >= 12;

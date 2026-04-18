@@ -947,7 +947,6 @@ body.theme-equalizer .secret-error {
 
 .search-icon {
     position: absolute;
-    left: 1.25rem;
     top: 50%;
     transform: translateY(-50%);
     font-size: 1.25rem;
