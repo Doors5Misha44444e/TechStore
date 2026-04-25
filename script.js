@@ -1155,7 +1155,6 @@ function setupEventListeners() {
         });
     });
 
-    // Theme switcher
     let currentTheme = localStorage.getItem('cyberzone_theme') || 'light';
     document.body.classList.add(`theme-${currentTheme}`);
     document.querySelector(`[data-theme="${currentTheme}"]`)?.classList.add('active');
@@ -1216,7 +1215,6 @@ function setupEventListeners() {
         if (e.target === successModal) closeSuccessModal();
     });
 
-    // New modal event listeners
     const secretUnlockModal = document.getElementById('secretUnlockModal');
     const discountModal = document.getElementById('discountModal');
     const historyModal = document.getElementById('historyModal');
@@ -1245,6 +1243,22 @@ function setupEventListeners() {
     historyModal?.addEventListener('click', (e) => {
         if (e.target === historyModal) closePurchaseHistory();
     });
+
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const headerControls = document.getElementById('headerControls');
+    if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', () => {
+            hamburgerBtn.classList.toggle('active');
+            headerControls.classList.toggle('active');
+        });
+        
+        headerControls.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                hamburgerBtn.classList.remove('active');
+                headerControls.classList.remove('active');
+            });
+        });
+    }
 }
 
 function handleSearch() {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="uk">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,13 +10,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="auth-overlay" id="authOverlay">
         <div class="auth-modal" id="authModal">
             <div class="auth-header">
                 <span class="auth-logo">⚡ TechStore</span>
             </div>
-            
+
             <div class="auth-form" id="loginForm">
                 <h2 id="loginTitle">🔐 Вхід</h2>
                 <div class="form-group">
@@ -32,7 +34,7 @@
                     Немає акаунту? <span>Зареєструватися</span>
                 </p>
             </div>
-            
+
             <div class="auth-form hidden" id="registerForm">
                 <h2 id="registerTitle">📝 Реєстрація</h2>
                 <div class="form-group">
@@ -66,8 +68,13 @@
                 <span class="logo-icon">⚡</span>
                 <span class="logo-text">TechStore</span>
             </a>
-            
-            <div class="header-controls">
+            <button class="hamburger-menu" id="hamburgerBtn" title="Меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="header-controls" id="headerControls">
                 <div class="user-info" id="userInfo">
                     <span class="user-icon">👤</span>
                     <span class="user-name" id="userName"></span>
@@ -75,27 +82,27 @@
                 </div>
 
                 <button class="history-btn" id="historyBtn" title="📜 Історія покупок">📜</button>
-                
+
                 <button class="code-btn" id="codeBtn" title="🎟️ Введіть код">🎟️</button>
-                
+
                 <div class="switcher">
                     <button class="theme-btn" data-theme="light" title="☀️ Light Theme">☀️</button>
                     <button class="theme-btn" data-theme="dark" title="🌙 Dark Theme">🌙</button>
                     <button class="theme-btn" data-theme="equalizer" title="🎛️ Equalizer Theme">🎛️</button>
                 </div>
-                
+
                 <div class="switcher">
                     <button class="lang-btn active" data-lang="uk">🇺🇦 UA</button>
                     <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
                     <button class="lang-btn" data-lang="pl">🇵🇱 PL</button>
                 </div>
-                
+
                 <div class="switcher">
                     <button class="currency-btn active" data-currency="UAH">₴</button>
                     <button class="currency-btn" data-currency="USD">$</button>
                     <button class="currency-btn" data-currency="PLN">zł</button>
                 </div>
-                
+
                 <button class="cart-btn" id="cartBtn">
                     <span class="cart-icon">🛒</span>
                     <span class="cart-count" id="cartCount">0</span>
@@ -190,7 +197,7 @@
                         <textarea id="addressInput" rows="3" required></textarea>
                     </div>
                 </div>
-                
+
                 <div class="form-section">
                     <h3 id="paymentMethodLabel">💳 Спосіб оплати</h3>
                     <div class="payment-options">
@@ -204,7 +211,7 @@
                         </label>
                     </div>
                 </div>
-                
+
                 <div class="form-section">
                     <h3 id="orderSummaryLabel">📋 Ваше замовлення</h3>
                     <div class="order-summary" id="orderItems"></div>
@@ -213,7 +220,7 @@
                         <span class="order-total-price" id="orderTotal">₴0</span>
                     </div>
                 </div>
-                
+
                 <button type="submit" class="place-order-btn" id="placeOrderBtn">✓ Оформити замовлення</button>
             </form>
         </div>
@@ -273,7 +280,8 @@
                 <h2 id="discountTitle">🎉 Вітаємо з 12 покупками!</h2>
                 <p id="discountMessage">У вас є 20% знижка на всі товари</p>
                 <div class="discount-form">
-                    <input type="text" id="discountCodeInput" placeholder="Код знижки: DISCOUNT20" class="discount-code-input" readonly>
+                    <input type="text" id="discountCodeInput" placeholder="Код знижки: DISCOUNT20"
+                        class="discount-code-input" readonly>
                     <button id="copyDiscountBtn" class="discount-btn">📋 Копіювати</button>
                 </div>
                 <button id="closeDiscountModalBtn" class="continue-btn">Продовжити</button>
@@ -315,4 +323,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
