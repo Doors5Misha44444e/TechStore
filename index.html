@@ -7,7 +7,7 @@
     <title>TechStore - Магазин електроніки</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>                                               
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
@@ -24,7 +24,7 @@
                     <label id="loginEmailLabel">Email</label>
                     <input type="email" id="loginEmail" placeholder="example@email.com" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group">                                                                                                               
                     <label id="loginPasswordLabel">Пароль</label>
                     <input type="password" id="loginPassword" placeholder="••••••••" required>
                 </div>
@@ -116,6 +116,18 @@
             <div class="search-container">
                 <input type="text" class="search-input" id="searchInput" placeholder="Пошук техніки...">
                 <span class="search-icon">🔍</span>
+            </div>
+        </section>
+
+        <section class="category-filter-section">
+            <div class="category-filters" id="categoryFilters">
+                <button class="category-btn active" data-category="all">📋 Всі товари</button>
+                <button class="category-btn" data-category="laptops">💻 Ноути</button>
+                <button class="category-btn" data-category="keyboards">🎹 Клавіатури</button>
+                <button class="category-btn" data-category="mice">🖱️ Мишки</button>
+                <button class="category-btn" data-category="gaming">🎮 Ігрове обладнання</button>
+                <button class="category-btn" data-category="components">🔧 Комплектуючі</button>
+                <button class="category-btn" data-category="headphones">🎧 Навушники</button>
             </div>
         </section>
 

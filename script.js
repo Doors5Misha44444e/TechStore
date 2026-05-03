@@ -942,6 +942,7 @@ const currencySymbols = {
 
 let currentLang = 'uk';
 let currentCurrency = 'UAH';
+let currentCategory = 'all';
 let cart = [];
 let currentProduct = null;
 let currentUser = null;
@@ -1155,6 +1156,16 @@ function setupEventListeners() {
         });
     });
 
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentCategory = btn.dataset.category;
+            renderRecommendedProducts();
+            if (searchInput.value) handleSearch();
+        });
+    });
+
     let currentTheme = localStorage.getItem('cyberzone_theme') || 'light';
     document.body.classList.add(`theme-${currentTheme}`);
     document.querySelector(`[data-theme="${currentTheme}"]`)?.classList.add('active');
@@ -1273,12 +1284,27 @@ function handleSearch() {
     recommendedSection.classList.add('hidden');
     searchSection.classList.remove('hidden');
 
-    const filteredProducts = products.filter(product => {
+    const categoryMap = {
+        'laptops': ['laptops'],
+        'keyboards': ['keyboards'],
+        'mice': ['mice'],
+        'gaming': ['gaming'],
+        'components': ['components'],
+        'headphones': ['headphones']
+    };
+
+    let filteredProducts = products.filter(product => {
         const name = product.name[currentLang].toLowerCase();
         const description = product.description[currentLang].toLowerCase();
         const category = translations[currentLang].categories[product.category].toLowerCase();
         return name.includes(query) || description.includes(query) || category.includes(query);
     });
+
+    // Застосовуємо фільтр категорій
+    if (currentCategory !== 'all') {
+        const allowedCategories = categoryMap[currentCategory] || [];
+        filteredProducts = filteredProducts.filter(p => allowedCategories.includes(p.category));
+    }
 
     if (filteredProducts.length === 0) {
         searchGrid.innerHTML = '';
@@ -1290,7 +1316,23 @@ function handleSearch() {
 }
 
 function renderRecommendedProducts() {
-    const recommended = products.filter(p => p.recommended);
+    let recommended = products.filter(p => p.recommended);
+    
+    // Фільтруємо по категоріям
+    if (currentCategory !== 'all') {
+        const categoryMap = {
+            'laptops': ['laptops'],
+            'keyboards': ['keyboards'],
+            'mice': ['mice'],
+            'gaming': ['gaming'],
+            'components': ['components'],
+            'headphones': ['headphones']
+        };
+        
+        const allowedCategories = categoryMap[currentCategory] || [];
+        recommended = recommended.filter(p => allowedCategories.includes(p.category));
+    }
+    
     renderProducts(recommended, recommendedGrid);
 }
 
