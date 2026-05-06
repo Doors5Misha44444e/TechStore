@@ -925,6 +925,76 @@ const products = [
             en: "This is the legendary secret item! Unlock it with a special code received after your first purchase. This item is available only to VIP users!",
             pl: "To legendarny tajny produkt! Odblokuj go specjalnym kodem otrzymanym po pierwszym zakupie. Ten produkt jest dostępny tylko dla użytkowników VIP!"
         }
+    },
+    {
+        id: 50,
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcgFXBuqXS8vV9hfCfByqrQk312c-Gcn71Hw&s",
+        name: { uk: "Dell UltraSharp U2724DE", en: "Dell UltraSharp U2724DE", pl: "Dell UltraSharp U2724DE" },
+        category: "monitors",
+        price: 18999,
+        recommended: true,
+        stock: 6,
+        description: {
+            uk: "Професійний монітор Dell UltraSharp U2724DE 27 дюймів. Роздільна здатність 2560x1440 (2K). IPS панель, 98% DCI-P3. USB-C з Power Delivery 90W. Потрійна підставка, висотна регулювання. Идеальний для дизайнерів та відеомонтажників.",
+            en: "Professional Dell UltraSharp U2724DE 27-inch monitor. 2560x1440 (2K) resolution. IPS panel, 98% DCI-P3. USB-C with 90W Power Delivery. Adjustable stand with height adjustment. Perfect for designers and video editors.",
+            pl: "Profesjonalny monitor Dell UltraSharp U2724DE 27 cali. Rozdzielczość 2560x1440 (2K). Panel IPS, 98% DCI-P3. USB-C z Power Delivery 90W. Regulowana podstawa z regulacją wysokości. Idealny dla projektantów i edytorów wideo."
+        }
+    },
+    {
+        id: 51,
+        image: "https://ua.store.asus.com/media/catalog/product/v/b/vbix8bxyatkzctly_setting_xxx_0_90_end_1000_5s89e04qbywrwngp.png",
+        name: { uk: "ASUS ProArt PA279CV", en: "ASUS ProArt PA279CV", pl: "ASUS ProArt PA279CV" },
+        category: "monitors",
+        price: 24999,
+        recommended: true,
+        stock: 4,
+        description: {
+            uk: "Преміум монітор ASUS ProArt PA279CV 27 дюймів. 4K UHD 3840x2160 роздільна здатність. 100% Adobe RGB і sRGB. Обладнаний калібрацією, гарантія точності кольорів. USB Type-C, DisplayPort 1.4. Для професійної роботи з кольором.",
+            en: "Premium ASUS ProArt PA279CV 27-inch monitor. 4K UHD 3840x2160 resolution. 100% Adobe RGB and sRGB. Factory calibrated, color accuracy guaranteed. USB Type-C, DisplayPort 1.4. For professional color work.",
+            pl: "Przenumereum monitor ASUS ProArt PA279CV 27 cali. Rozdzielczość 4K UHD 3840x2160. 100% Adobe RGB i sRGB. Kalibrowany fabrycznym, dokładność kolorów gwarantowana. USB Type-C, DisplayPort 1.4. Do profesjonalnej pracy z kolorem."
+        }
+    },
+    {
+        id: 52,
+        image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=400&h=300&fit=crop",
+        name: { uk: "LG UltraGear 27GP850-W", en: "LG UltraGear 27GP850-W", pl: "LG UltraGear 27GP850-W" },
+        category: "monitors",
+        price: 17999,
+        recommended: true,
+        stock: 8,
+        description: {
+            uk: "Ігровий монітор LG UltraGear 27GP850-W 27 дюймів. 1440p 240Hz QHD. 1ms MPRT відповідь. Nano IPS панель. NVIDIA G-Sync Compatible. Вбудовані динаміки, USB Type-C. Ідеальний для компетитивного гейміну та кіберспорту.",
+            en: "Gaming monitor LG UltraGear 27GP850-W 27 inches. 1440p 240Hz QHD. 1ms MPRT response. Nano IPS panel. NVIDIA G-Sync Compatible. Built-in speakers, USB Type-C. Ideal for competitive gaming and esports.",
+            pl: "Monitor gamingowy LG UltraGear 27GP850-W 27 cali. 1440p 240Hz QHD. Odpowiedź 1ms MPRT. Panel Nano IPS. NVIDIA G-Sync Compatible. Wbudowane głośniki, USB Type-C. Idealny do gier konkurencyjnych i esportów."
+        }
+    },
+    {
+        id: 53,
+        image: "https://images.unsplash.com/photo-1636478300887-6ece97ddf25e?w=400&h=300&fit=crop",
+        name: { uk: "BenQ SW240", en: "BenQ SW240", pl: "BenQ SW240" },
+        category: "monitors",
+        price: 12999,
+        recommended: false,
+        stock: 5,
+        description: {
+            uk: "Компактний монітор BenQ SW240 24 дюйми для мобільних професіоналів. Full HD 1920x1200 роздільна здатність. 99% Adobe RGB. USB Type-C з Power Delivery. Портативна вага 2.8 кг. Вбудована регулювання кольору. Ідеальний для фотографів і дизайнерів.",
+            en: "Compact BenQ SW240 24-inch monitor for mobile professionals. Full HD 1920x1200 resolution. 99% Adobe RGB. USB Type-C with Power Delivery. Portable weight 2.8 kg. Built-in color adjustment. Perfect for photographers and designers.",
+            pl: "Kompaktowy monitor BenQ SW240 24 cale dla mobilnych profesjonalistów. Rozdzielczość Full HD 1920x1200. 99% Adobe RGB. USB Type-C z Power Delivery. Przenośna waga 2,8 kg. Wbudowana regulacja kolorów. Idealny dla fotografów i projektantów."
+        }
+    },
+    {
+        id: 54,
+        image: "https://images.unsplash.com/photo-1611532736579-6b16e2b50449?w=400&h=300&fit=crop",
+        name: { uk: "Samsung M5 Smart Monitor", en: "Samsung M5 Smart Monitor", pl: "Samsung M5 Smart Monitor" },
+        category: "monitors",
+        price: 15999,
+        recommended: false,
+        stock: 7,
+        description: {
+            uk: "Розумний монітор Samsung M5 32 дюйми. 4K UHD 3840x2160. Smart TV функціонал з вбудованими додатками. Вбудована камера та мікрофон для відеоконференцій. AirPlay, Miracast, SmartThings. Вибудові динаміки Dolby Atmos. Для роботи та розваг.",
+            en: "Samsung M5 Smart Monitor 32 inches. 4K UHD 3840x2160. Smart TV functionality with built-in apps. Built-in camera and microphone for video conferencing. AirPlay, Miracast, SmartThings. Built-in Dolby Atmos speakers. For work and entertainment.",
+            pl: "Inteligentny monitor Samsung M5 32 cale. 4K UHD 3840x2160. Funkcjonalność Smart TV z wbudowanymi aplikacjami. Wbudowana kamera i mikrofon do wideokonferencji. AirPlay, Miracast, SmartThings. Wbudowane głośniki Dolby Atmos. Do pracy i rozrywki."
+        }
     }
 ];
 
@@ -1036,11 +1106,14 @@ function login(email, password) {
 
 function register(name, email, password) {
     const users = getUsers();
+    console.log('Current users:', users);
     if (users.find(u => u.email === email)) {
+        console.log('Email already exists:', email);
         return false;
     }
     users.push({ name, email, password });
     saveUsers(users);
+    console.log('User registered successfully:', {name, email});
     currentUser = { name, email };
     localStorage.setItem('cyberzone_user', JSON.stringify(currentUser));
     return true;
@@ -1057,6 +1130,8 @@ function logout() {
 }
 
 function setupEventListeners() {
+    console.log('Setting up event listeners...');
+    
     document.getElementById('switchToRegister').addEventListener('click', () => {
         loginForm.classList.add('hidden');
         registerForm.classList.remove('hidden');
@@ -1098,25 +1173,32 @@ function setupEventListeners() {
         const confirm = document.getElementById('registerConfirm').value;
         const errorEl = document.getElementById('registerError');
 
+        console.log('Register clicked:', {name, email, password, confirm});
+
         if (!name || !email || !password || !confirm) {
             errorEl.textContent = translations[currentLang].fillAllFields;
             errorEl.classList.remove('hidden');
+            console.log('Missing fields');
             return;
         }
 
         if (password.length < 6) {
             errorEl.textContent = translations[currentLang].passwordShort;
             errorEl.classList.remove('hidden');
+            console.log('Password too short');
             return;
         }
 
         if (password !== confirm) {
             errorEl.textContent = translations[currentLang].passwordMismatch;
             errorEl.classList.remove('hidden');
+            console.log('Passwords dont match');
             return;
         }
 
+        console.log('Attempting to register...');
         if (register(name, email, password)) {
+            console.log('Registration successful');
             document.getElementById('registerName').value = '';
             document.getElementById('registerEmail').value = '';
             document.getElementById('registerPassword').value = '';
@@ -1126,6 +1208,7 @@ function setupEventListeners() {
         } else {
             errorEl.textContent = translations[currentLang].registerError;
             errorEl.classList.remove('hidden');
+            console.log('User already exists');
         }
     });
 
@@ -1286,6 +1369,7 @@ function handleSearch() {
 
     const categoryMap = {
         'laptops': ['laptops'],
+        'monitors': ['monitors'],
         'keyboards': ['keyboards'],
         'mice': ['mice'],
         'gaming': ['gaming'],
@@ -1322,6 +1406,7 @@ function renderRecommendedProducts() {
     if (currentCategory !== 'all') {
         const categoryMap = {
             'laptops': ['laptops'],
+            'monitors': ['monitors'],
             'keyboards': ['keyboards'],
             'mice': ['mice'],
             'gaming': ['gaming'],
